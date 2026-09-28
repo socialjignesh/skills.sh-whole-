@@ -4,63 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project Sentinel — Gujarat Police Innovation Hackathon 2026</title>
-<meta name="description" content="AI-Powered Intelligent CCTV Investigation & Multi-Agent Surveillance Platform">
+<meta name="description" content="AI-Powered Intelligent CCTV Investigation & Multi-Agent Surveillance Platform — Official Slide Deck, revised">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 /* ===========================================
-   DESIGN SYSTEM: "SIGNAL" — editorial intelligence-briefing
-   Deep navy + warm cream dual surface, antique gold as sole accent.
-   Source Serif 4 = voice, DM Sans = substance, IBM Plex Mono = metadata.
-   Adapted for Project Sentinel — Gujarat Police Innovation Hackathon 2026.
+   DESIGN SYSTEM — continuation of Harsha's original deck identity:
+   deep navy cover/close, white/light content slides, cyan-blue labels,
+   orange "official theme" accent, gray cards, chevron bullets.
+   NOT a redesign — same visual language as PROJECT_SENTINEL_Presentation.pdf.
    =========================================== */
 :root {
-    --navy: #1C2644;
-    --navy-alt: #232F55;
-    --cream: #F0ECE3;
-    --cream-alt: #E6E0D4;
-    --text-warm: #E2DCD0;
-    --text-muted-dark: #8A96A8;
-    --text-hint-dark: #4E5A6E;
-    --ink: #1A2030;
-    --text-muted-light: #5A6270;
-    --text-hint-light: #9AA0A8;
-    --gold: #C8A870;
-    --gold-soft: rgba(200, 168, 112, 0.35);
-    --border-dark: #2E3D5C;
-    --border-light: #CAC4B4;
-    --danger: #B4553F;
+    --navy: #0B1220;
+    --navy-2: #0F1830;
+    --white: #FFFFFF;
+    --card: #F3F5F8;
+    --card-2: #ECEFF3;
+    --ink: #12151C;
+    --gray: #5B6472;
+    --gray-light: #8890A0;
+    --hairline: #E2E5EA;
+    --cyan: #2FA8E0;
+    --orange: #F2994A;
+    --green: #1AA260;
+    --red: #DC3B3B;
+    --navy-text-muted: #8B96AC;
 
-    --f-serif: 'Source Serif 4', Georgia, serif;
-    --f-sans: 'DM Sans', system-ui, sans-serif;
-    --f-mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    --f-display: 'Manrope', system-ui, sans-serif;
+    --f-body: 'Public Sans', system-ui, sans-serif;
+    --f-mono: 'IBM Plex Mono', monospace;
 
     --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-sharp: cubic-bezier(0.77, 0, 0.175, 1);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ===========================================
-   FIXED 16:9 STAGE — mandatory base (viewport-base.css, verbatim)
-   =========================================== */
-html, body {
-    width: 100%; height: 100%; margin: 0; overflow: hidden;
-    background: var(--stage-bg, #000);
-}
-.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
-.deck-stage {
-    position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
-    overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff);
-}
-.slide {
-    position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden;
-    display: block; visibility: hidden; opacity: 0; pointer-events: none;
-    background: var(--slide-bg, #fff);
-}
+/* Fixed 16:9 stage — mandatory base */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #000; }
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: #000; }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--white); }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--white); }
 .slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
 img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 .deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
@@ -72,516 +57,537 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
     .slide:last-child { break-after: auto; page-break-after: auto; }
     .deck-controls { display: none !important; }
 }
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
-}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; } }
 
-/* ===========================================
-   SURFACES
-   =========================================== */
-body { background: #05070c; }
-.slide.dark { background: var(--navy); color: var(--text-warm); }
-.slide.light { background: var(--cream); color: var(--ink); }
-
+/* Surfaces */
+.slide.dark { background: var(--navy); color: var(--white); }
+.slide.light { background: var(--white); color: var(--ink); }
 .slide.dark::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 80px 80px;
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+    background: radial-gradient(ellipse 900px 500px at 78% 20%, rgba(47,168,224,0.10), transparent 60%),
+                radial-gradient(ellipse 700px 500px at 15% 85%, rgba(242,153,74,0.06), transparent 60%);
 }
 
-/* ===========================================
-   TYPOGRAPHY LADDER (authored at 1920x1080 fixed px, not vw)
-   =========================================== */
-.k-display { font-family: var(--f-serif); font-weight: 700; font-size: 152px; line-height: 0.96; letter-spacing: -0.02em; }
-.k-h1      { font-family: var(--f-serif); font-weight: 600; font-size: 84px; line-height: 1.08; letter-spacing: -0.01em; }
-.k-h2      { font-family: var(--f-serif); font-weight: 600; font-size: 50px; line-height: 1.18; }
-.k-h3      { font-family: var(--f-serif); font-weight: 500; font-size: 32px; line-height: 1.3; }
-.k-editorial { font-family: var(--f-serif); font-weight: 600; font-size: 46px; line-height: 1.2; }
-.k-lead    { font-family: var(--f-sans); font-weight: 400; font-size: 24px; line-height: 1.55; }
-.k-body    { font-family: var(--f-sans); font-weight: 400; font-size: 18px; line-height: 1.6; }
-.k-caption { font-family: var(--f-sans); font-weight: 400; font-size: 14px; line-height: 1.5; }
-.k-label   { font-family: var(--f-mono); font-weight: 500; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; }
-.k-stat    { font-family: var(--f-serif); font-weight: 600; font-size: 78px; line-height: 1; letter-spacing: -0.02em; color: var(--gold); }
+/* Typography */
+.k-display { font-family: var(--f-display); font-weight: 800; font-size: 108px; line-height: 1.02; letter-spacing: -0.01em; }
+.k-h1 { font-family: var(--f-display); font-weight: 800; font-size: 60px; line-height: 1.12; letter-spacing: -0.01em; }
+.k-h2 { font-family: var(--f-display); font-weight: 700; font-size: 42px; line-height: 1.2; letter-spacing: -0.005em; }
+.k-h3 { font-family: var(--f-display); font-weight: 700; font-size: 24px; line-height: 1.3; }
+.k-lead { font-family: var(--f-body); font-weight: 400; font-size: 22px; line-height: 1.55; }
+.k-body { font-family: var(--f-body); font-weight: 400; font-size: 17px; line-height: 1.6; }
+.k-caption { font-family: var(--f-body); font-weight: 400; font-size: 14px; line-height: 1.5; }
+.k-kicker { font-family: var(--f-display); font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); }
+.k-stat { font-family: var(--f-display); font-weight: 800; font-size: 52px; line-height: 1; color: var(--cyan); }
+.k-mono { font-family: var(--f-mono); font-size: 13px; }
 
-.dark .k-label, .dark em { color: var(--gold); }
-.light .k-label, .light em { color: var(--gold); }
-em { font-style: italic; font-family: var(--f-serif); }
-.dark .k-h1 em, .dark .k-h2 em, .dark .k-h3 em, .dark .k-display em, .dark .k-editorial em { color: var(--gold); }
-.light .k-h1 em, .light .k-h2 em, .light .k-h3 em, .light .k-display em, .light .k-editorial em { color: var(--gold); }
+.dark .muted { color: var(--navy-text-muted); }
+.light .muted { color: var(--gray); }
+em { font-style: normal; color: var(--orange); font-weight: 700; }
 
-.dark .muted { color: var(--text-muted-dark); }
-.light .muted { color: var(--text-muted-light); }
-.dark .hint { color: var(--text-hint-dark); }
-.light .hint { color: var(--text-hint-light); }
-
-/* ===========================================
-   CHROME (top/bottom bars) — standard slides only
-   =========================================== */
+/* Chrome */
 .slide { display: grid; grid-template-rows: auto 1fr auto; padding: 0 148px; }
 .slide.chromeless { grid-template-rows: 1fr; padding: 0 148px; }
+.chrome-bar { display: flex; align-items: center; justify-content: space-between; padding: 40px 0 0 0; }
+.foot-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 34px 0; border-top: 1px solid; }
+.light .foot-bar { border-color: var(--hairline); }
+.dark .foot-bar { border-color: rgba(255,255,255,0.12); }
+.body-row { display: flex; flex-direction: column; justify-content: center; min-height: 0; overflow: hidden; padding: 30px 0; }
 
-.chrome-bar, .foot-bar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 40px 0 20px 0;
+.badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--cyan); color: var(--cyan);
+    font-family: var(--f-display); font-weight: 700; font-size: 14px; letter-spacing: 0.02em;
+    padding: 10px 20px; border-radius: 8px; background: rgba(47,168,224,0.06);
 }
-.foot-bar { padding: 20px 0 34px 0; }
-.dark .chrome-bar, .dark .foot-bar { border-color: var(--border-dark); }
-.light .chrome-bar, .light .foot-bar { border-color: var(--border-light); }
-.chrome-bar { border-bottom: 1px solid; }
-.foot-bar { border-top: 1px solid; }
+.entry-id { font-family: var(--f-mono); font-size: 13px; color: var(--navy-text-muted); }
+.theme-tag { font-family: var(--f-display); font-weight: 800; font-size: 15px; color: var(--orange); letter-spacing: 0.01em; }
 
-.body-row { display: flex; flex-direction: column; justify-content: center; min-height: 0; overflow: hidden; padding: 46px 0; }
+/* Cards */
+.card { background: var(--card); border-radius: 14px; padding: 26px 28px; }
+.light .card { background: var(--card); }
+.dark .card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+.card-tight { padding: 18px 22px; }
+.card-outline { background: transparent; border: 1.5px solid var(--hairline); border-radius: 14px; padding: 26px 28px; }
+.card-highlight { background: rgba(47,168,224,0.06); border: 1.5px solid var(--cyan); border-radius: 14px; padding: 26px 28px; }
 
-/* ===========================================
-   DECORATIVE PRIMITIVES
-   =========================================== */
-.rule-short { width: 48px; height: 2px; background: var(--gold); margin: 24px 0; }
-.tag { display: inline-block; border: 1px solid var(--gold); color: var(--gold); padding: 6px 16px; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+/* callout boxes matching her original */
+.callout-insight { background: #FDECEC; border-left: 4px solid var(--red); border-radius: 6px; padding: 18px 24px; }
+.callout-insight strong { color: #B71E1E; }
+.callout-solution { background: var(--navy); color: var(--white); border-radius: 10px; padding: 24px 30px; text-align: center; }
+.callout-good { background: #E9F8F0; border: 1px solid #BFE9D4; border-radius: 10px; padding: 18px 24px; }
+.callout-outcome { background: #EAF5FC; border: 1px solid #BFE1F2; border-radius: 10px; padding: 18px 24px; }
+.callout-warn { color: var(--red); font-weight: 600; }
 
-ul.dashlist { list-style: none; }
-ul.dashlist li { position: relative; padding-left: 32px; margin-bottom: 14px; }
-ul.dashlist li::before { content: "—"; position: absolute; left: 0; color: var(--gold); font-family: var(--f-mono); }
+/* chevron bullets, matching her ">" list markers */
+ul.chevlist { list-style: none; }
+ul.chevlist li { position: relative; padding-left: 26px; margin-bottom: 10px; font-family: var(--f-body); font-size: 16px; }
+ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px; color: var(--cyan); font-weight: 800; font-size: 20px; }
 
-/* ===========================================
-   REVEAL ANIMATIONS
-   =========================================== */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring); }
-.slide.visible .reveal { opacity: 1; transform: translateY(0); }
-.slide.visible .reveal[data-d="1"] { transition-delay: .08s; }
-.slide.visible .reveal[data-d="2"] { transition-delay: .16s; }
-.slide.visible .reveal[data-d="3"] { transition-delay: .24s; }
-.slide.visible .reveal[data-d="4"] { transition-delay: .32s; }
-.slide.visible .reveal[data-d="5"] { transition-delay: .40s; }
-.slide.visible .reveal[data-d="6"] { transition-delay: .48s; }
-.slide.visible .reveal[data-d="7"] { transition-delay: .56s; }
+/* grids */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+.grid-cols-7 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px 40px; }
 
-/* ===========================================
-   LAYOUT UTILITIES
-   =========================================== */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
-.grid-cols-7 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px 56px; }
-.card { border-top: 1px solid; padding: 26px 0 0 0; }
-.dark .card { border-color: var(--border-dark); }
-.light .card { border-color: var(--border-light); }
-.vline { border-right: 1px solid; }
-.dark .vline { border-color: var(--border-dark); }
-.light .vline { border-color: var(--border-light); }
+/* flow row (pipeline chips) */
+.flowrow { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.flowchip { font-family: var(--f-display); font-weight: 700; font-size: 14px; border: 1px solid var(--hairline); border-radius: 10px; padding: 14px 20px; background: var(--card); }
+.dark .flowchip { border-color: rgba(255,255,255,0.14); background: rgba(255,255,255,0.04); color: var(--white); }
+.flowarrow { color: var(--gray-light); font-weight: 700; font-size: 18px; }
+.dark .flowarrow { color: var(--navy-text-muted); }
 
-/* flow arrows */
-.flowrow { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.flowchip { font-family: var(--f-mono); font-size: 15px; letter-spacing: 0.04em; border: 1px solid var(--border-dark); padding: 14px 22px; }
-.light .flowchip { border-color: var(--border-light); }
-.flowarrow { color: var(--gold); font-family: var(--f-mono); font-size: 20px; }
+/* timeline (numbered) */
+.tl-item { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 26px; }
+.tl-num { width: 40px; height: 40px; border-radius: 50%; background: var(--cyan); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--f-display); font-weight: 800; font-size: 17px; flex-shrink: 0; }
 
-/* timeline */
-.tl { position: relative; padding-left: 56px; }
-.tl-spine { position: absolute; left: 8px; top: 6px; bottom: 6px; width: 1px; background: var(--border-dark); }
-.tl-item { position: relative; margin-bottom: 44px; }
-.tl-dot { position: absolute; left: -56px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
-
-/* highlighted / placeholder slide (Current Build Status) */
-.placeholder-box {
-    border: 1px dashed var(--gold-soft);
-    padding: 40px;
-    background: rgba(200,168,112,0.05);
-}
-
-/* stat card grid */
-.stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 64px; }
+/* placeholder box */
+.placeholder-box { border: 2px dashed var(--orange); border-radius: 12px; padding: 30px 34px; background: rgba(242,153,74,0.06); }
 
 /* member cards */
-.member-card { border-top: 1px solid var(--border-dark); padding-top: 22px; }
-.light .member-card { border-color: var(--border-light); }
+.member-card { background: var(--card); border-radius: 14px; padding: 26px; }
 
-/* ===========================================
-   EDIT MODE (post-draft affordance)
-   =========================================== */
+/* reveal animation */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s var(--ease-spring), transform 0.6s var(--ease-spring); }
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.slide.visible .reveal[data-d="1"] { transition-delay: .06s; }
+.slide.visible .reveal[data-d="2"] { transition-delay: .13s; }
+.slide.visible .reveal[data-d="3"] { transition-delay: .20s; }
+.slide.visible .reveal[data-d="4"] { transition-delay: .27s; }
+.slide.visible .reveal[data-d="5"] { transition-delay: .34s; }
+.slide.visible .reveal[data-d="6"] { transition-delay: .41s; }
+
+/* Edit mode */
 .edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
 .edit-toggle {
     position: fixed; top: 14px; left: 14px; z-index: 10001;
-    width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--gold);
-    background: rgba(28,38,68,0.9); color: var(--gold); font-size: 16px; cursor: pointer;
+    width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--cyan);
+    background: rgba(11,18,32,0.9); color: var(--cyan); font-size: 16px; cursor: pointer;
     opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
 .edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
-.edit-toggle.active { background: var(--gold); color: var(--navy); }
-[contenteditable="true"] { outline: 1px dashed var(--gold-soft); outline-offset: 4px; cursor: text; }
+.edit-toggle.active { background: var(--cyan); color: var(--navy); }
+[contenteditable="true"] { outline: 1px dashed rgba(47,168,224,0.5); outline-offset: 4px; cursor: text; }
 
-/* ===========================================
-   NAV CONTROLS
-   =========================================== */
-.deck-controls { display: flex; align-items: center; gap: 14px; font-family: var(--f-mono); }
-.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(200,168,112,0.35); cursor: pointer; transition: background .2s; }
-.nav-dot.active { background: var(--gold); }
-.nav-count { color: var(--gold); font-size: 12px; letter-spacing: 0.1em; background: rgba(0,0,0,0.4); padding: 8px 14px; border: 1px solid var(--gold-soft); border-radius: 20px; }
+/* Nav */
+.deck-controls { display: flex; align-items: center; gap: 12px; font-family: var(--f-mono); }
+.nav-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(47,168,224,0.35); cursor: pointer; }
+.nav-dot.active { background: var(--cyan); }
+.nav-count { color: var(--cyan); font-size: 12px; letter-spacing: 0.08em; background: rgba(11,18,32,0.85); padding: 8px 14px; border: 1px solid rgba(47,168,224,0.4); border-radius: 20px; }
 </style>
 </head>
 <body>
 <div class="deck-viewport">
 <main class="deck-stage" id="deckStage">
 
-<!-- ============ SLIDE 1 — TITLE ============ -->
+<!-- ============ SLIDE 1 — TITLE (Harsha's original cover, unchanged) ============ -->
 <section class="slide dark chromeless" data-title="Title">
-  <div style="display:flex;flex-direction:column;justify-content:center;height:100%;">
-    <div class="k-label reveal" data-d="1">Gujarat Police Innovation Hackathon 2026 · Entry GP-HACK-2026</div>
-    <div class="rule-short reveal" data-d="1"></div>
-    <h1 class="k-display reveal" data-d="2">PROJECT<br><em>SENTINEL</em></h1>
-    <p class="k-lead muted reveal" style="max-width:980px;margin-top:28px;" data-d="3">AI-Powered Intelligent CCTV Investigation &amp; Multi-Agent Surveillance Platform</p>
-    <p class="k-h3 reveal" style="max-width:1040px;margin-top:34px;font-style:italic;" data-d="4">"Turning existing CCTV infrastructure into a coordinated intelligence network."</p>
-    <p class="k-body muted reveal" style="margin-top:22px;" data-d="5">Built to run on Gujarat's existing 80,000+ CCTV nodes — zero hardware replacement.</p>
-    <div class="k-label reveal" style="margin-top:56px;" data-d="6">Theme: "PROTECT WHAT MATTERS."</div>
+  <div style="padding-top:70px;display:flex;justify-content:space-between;align-items:flex-start;">
+    <span class="badge reveal" data-d="1">GUJARAT POLICE INNOVATION HACKATHON 2026</span>
+    <span class="entry-id reveal" data-d="1">ENTRY ID: GP-HACK-2026</span>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;flex:1;max-width:1160px;">
+    <span class="k-kicker reveal" data-d="2">🛡 Official Slide Deck</span>
+    <h1 class="k-display reveal" style="margin-top:14px;" data-d="3">PROJECT SENTINEL</h1>
+    <p class="k-lead reveal" style="margin-top:16px;max-width:900px;" data-d="4">AI-Powered Intelligent CCTV Investigation &amp; Multi-Agent Surveillance Platform</p>
+    <div class="card reveal" style="margin-top:26px;max-width:900px;border-left:4px solid var(--cyan);border-radius:8px;" data-d="5">
+      <p class="k-lead" style="font-style:italic;">"Turning existing CCTV infrastructure into a coordinated intelligence network."</p>
+    </div>
+    <p class="k-body muted reveal" style="margin-top:20px;" data-d="6">Scalable AI architecture designed for 80,000+ state CCTV nodes. Built to run on Gujarat's existing camera infrastructure — zero hardware replacement.</p>
+  </div>
+  <div class="foot-bar reveal" data-d="6">
+    <span class="theme-tag">OFFICIAL THEME: "PROTECT WHAT MATTERS."</span>
+    <span class="k-caption muted">Zero-Hardware-Overhaul Architecture</span>
   </div>
 </section>
 
-<!-- ============ SLIDE 2 — THE CORE BOTTLENECK ============ -->
+<!-- ============ SLIDE 2 — THE CORE BOTTLENECK (unchanged) ============ -->
 <section class="slide light" data-title="The Core Bottleneck">
-  <div class="chrome-bar"><span class="k-label">01 — Operational Challenge</span><span class="k-label hint">Sentinel · GP-HACK-2026</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Operational Challenge</span></div>
+    <span class="k-caption muted">The Core Bottleneck · 02 / 19</span>
+  </div>
   <div class="body-row">
-    <div class="grid-2" style="align-items:center;">
-      <div class="reveal" data-d="1">
-        <h2 class="k-h2">Gujarat Has Cameras.<br>The Challenge Is <em>Connecting Their Intelligence.</em></h2>
-        <div class="rule-short"></div>
-        <p class="k-body muted" style="max-width:560px;">A large CCTV network produces enormous volumes of continuous video. During a critical vehicle incident, officers face time-critical questions — which cameras saw it, when, and where it moved next.</p>
-      </div>
+    <h2 class="k-h2 reveal" data-d="1" style="max-width:1000px;">Gujarat Has Cameras. The Challenge Is Connecting Their Intelligence.</h2>
+    <div class="grid-2" style="margin-top:30px;align-items:start;">
       <div class="reveal" data-d="2">
-        <div class="flowrow" style="flex-direction:column;align-items:flex-start;gap:14px;">
-          <div class="flowchip">80,000+ Cameras</div>
-          <div class="flowarrow">↓</div>
-          <div class="flowchip">Massive Unstructured Video</div>
-          <div class="flowarrow">↓</div>
-          <div class="flowchip">Scattered Silos</div>
-          <div class="flowarrow">↓</div>
-          <div class="flowchip" style="border-color:var(--danger);color:var(--danger);">Manual Multi-Hour Review</div>
+        <p class="k-body muted">A large CCTV network produces enormous volumes of continuous video. During a critical vehicle incident or crime investigation, officers face time-critical questions:</p>
+        <div class="grid-2" style="gap:16px;margin-top:20px;">
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">📷 Which cameras saw it?</span></div>
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">🕐 Exact timestamp of sighting?</span></div>
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">🚗 Where did it move next?</span></div>
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">🗄 Matches official records?</span></div>
+        </div>
+        <div class="callout-insight" style="margin-top:22px;">
+          <span class="k-body"><strong>Key Insight:</strong> The problem is not watching cameras — it is rapidly querying data across thousands of isolated feeds.</span>
+        </div>
+      </div>
+      <div class="reveal" data-d="3">
+        <div class="card" style="text-align:center;">
+          <span class="k-kicker" style="color:var(--gray);">The Fragmented Reality Today</span>
+          <div class="flowrow" style="flex-direction:column;align-items:stretch;gap:10px;margin-top:16px;">
+            <div class="flowchip">80,000+ Cameras → <span style="color:var(--red);">Massive Unstructured Video</span></div>
+            <div class="flowchip"><span style="color:var(--red);">Scattered Silos</span> → <span style="color:var(--red);">Manual Multi-Hour Review</span></div>
+          </div>
+          <div class="callout-solution" style="margin-top:16px;">
+            <span class="k-kicker" style="color:var(--cyan);">The Sentinel Solution</span>
+            <p class="k-body" style="margin-top:6px;color:#fff;">One Unified Intelligence Layer Connecting All Streams</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="foot-bar">
-    <div class="k-body reveal" data-d="3"><strong style="font-family:var(--f-serif);">Key Insight:</strong> The problem is not watching cameras — it is rapidly querying data across thousands of isolated feeds.</div>
-    <span class="tag">The Sentinel Solution</span>
-  </div>
 </section>
 
-<!-- ============ SLIDE 3 — PROPOSED SOLUTION ============ -->
-<section class="slide dark" data-title="Proposed Solution">
-  <div class="chrome-bar"><span class="k-label">02 — Proposed Solution</span><span class="k-label hint">03 / 19</span></div>
+<!-- ============ SLIDE 3 — PROPOSED SOLUTION (her "Core Proposition" + agreed 5-part expansion) ============ -->
+<section class="slide light" data-title="Proposed Solution">
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Proposed Solution</span></div>
+    <span class="k-caption muted">03 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Sentinel-AI: A High-Performance, <em>Microservices-Based</em> Hybrid Architecture</h2>
-    <p class="k-lead muted reveal" style="max-width:1100px;margin:14px 0 32px;" data-d="2">Designed to integrate 80,000+ CCTV nodes without replacing existing hardware or VMS infrastructure.</p>
-    <div class="grid-cols-7 reveal" data-d="3">
-      <div class="card"><span class="k-label">01 · Ingestion</span><p class="k-body" style="margin-top:8px;">Video Ingestion &amp; WebRTC Streaming — RTSP feeds over TCP via OpenCV, transcoded to WebRTC via MediaMTX for ultra-low-latency browser playback.</p></div>
-      <div class="card"><span class="k-label">02 · Agents</span><p class="k-body" style="margin-top:8px;">Dynamic Geo-Fenced AI Micro-Agents — spawned within a 5km radius of a reported incident using PostGIS spatial queries, processing temporally-skipped frames (5 FPS).</p></div>
-      <div class="card"><span class="k-label">03 · Analytics</span><p class="k-body" style="margin-top:8px;">Dual-Mode Analytics — targeted single-vehicle deep search alongside automated batch-logging for real-time watchlist cross-referencing.</p></div>
-      <div class="card"><span class="k-label">04 · Data Layer</span><p class="k-body" style="margin-top:8px;">Database Partitioning &amp; Redis Caching — state-code sharding (GJ01, GJ04…) with in-memory Redis lookup for target sub-millisecond vehicle queries.</p></div>
+    <h2 class="k-h2 reveal" data-d="1">Sentinel-AI: A High-Performance, Microservices-Based Hybrid Architecture</h2>
+    <p class="k-body muted reveal" style="max-width:1200px;margin-top:8px;" data-d="1">Designed to integrate 80,000+ CCTV nodes without replacing existing hardware or VMS infrastructure.</p>
+    <div class="grid-cols-7 reveal" style="margin-top:24px;" data-d="2">
+      <div class="card card-tight"><span class="k-h3" style="font-size:17px;color:var(--cyan);">01 · Video Ingestion &amp; WebRTC Streaming</span><p class="k-body muted" style="margin-top:6px;">RTSP feeds over TCP via OpenCV, transcoded to WebRTC via MediaMTX for ultra-low-latency browser playback.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:17px;color:var(--cyan);">02 · Dynamic Geo-Fenced AI Micro-Agents</span><p class="k-body muted" style="margin-top:6px;">Spawned within a 5km radius of a reported incident using PostGIS spatial queries — not continuous 24/7 scanning.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:17px;color:var(--cyan);">03 · Dual-Mode Analytics</span><p class="k-body muted" style="margin-top:6px;">Targeted single-vehicle deep search alongside automated batch-logging for real-time watchlist cross-referencing.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:17px;color:var(--cyan);">04 · Database Partitioning &amp; Redis Caching</span><p class="k-body muted" style="margin-top:6px;">State-code sharding (GJ01, GJ04…) with in-memory Redis lookup for target sub-millisecond vehicle queries.</p></div>
     </div>
-    <div class="card reveal" style="margin-top:26px;" data-d="4"><span class="k-label">05 · Architecture</span><p class="k-body" style="margin-top:8px;max-width:1100px;">Decoupled Web Architecture — frontend and APIs kept fully separate from heavy AI compute, protecting dashboard uptime even under heavy AI processing load.</p></div>
+    <div class="card card-tight reveal" style="margin-top:18px;max-width:760px;" data-d="3"><span class="k-h3" style="font-size:17px;color:var(--cyan);">05 · Decoupled Web Architecture</span><p class="k-body muted" style="margin-top:6px;">Frontend/APIs kept fully separate from heavy AI compute, protecting dashboard uptime under heavy AI load.</p></div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">Zero-hardware-overhaul architecture</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">✓ Zero-hardware-overhaul approach — direct RTSP ingestion, no camera replacement</span></div>
 </section>
 
-<!-- ============ SLIDE 4 — ARCHITECTURE PART 1 ============ -->
+<!-- ============ SLIDE 4 — SYSTEM OVERVIEW PART 1 (split from her single 8-layer slide) ============ -->
 <section class="slide light" data-title="System Architecture — Ingestion & Streaming">
-  <div class="chrome-bar"><span class="k-label">03 — System Architecture · Part 1</span><span class="k-label hint">04 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">System Overview · Part 1</span></div>
+    <span class="k-caption muted">04 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Ingestion &amp; <em>Streaming</em></h2>
-    <div class="rule-short reveal" data-d="1"></div>
-    <div style="margin-top:20px;">
-      <div class="card reveal" data-d="2" style="margin-bottom:26px;">
-        <span class="k-label">Layer 1–2 · Existing Cameras &amp; RTSP Ingestion</span>
-        <p class="k-body muted" style="margin-top:10px;max-width:1200px;">Connects to 80,000+ CCTV nodes across multi-vendor VMS/DVR/NVR systems, without replacing hardware.</p>
-      </div>
-      <div class="card reveal" data-d="3" style="margin-bottom:26px;">
-        <span class="k-label">Layer 3 · WebRTC Browser Streaming</span>
-        <p class="k-body muted" style="margin-top:10px;max-width:1200px;">RTSP-over-TCP transcoded via MediaMTX for ultra-low-latency playback directly in command center browsers.</p>
-      </div>
-      <div class="card reveal" data-d="4">
-        <span class="k-label">Layer 4 · Core Computer Vision Pipeline</span>
-        <p class="k-body muted" style="margin-top:10px;max-width:1200px;">Detects vehicles, number plates, occupants, and unusual movement patterns.</p>
-      </div>
+    <h2 class="k-h2 reveal" data-d="1">How Sentinel Works: Ingestion &amp; Streaming</h2>
+    <div style="margin-top:26px;">
+      <div class="card reveal" style="margin-bottom:18px;" data-d="2"><span class="k-h3" style="color:var(--cyan);">Layer 1 &amp; 2 — Existing Cameras &amp; RTSP Ingestion</span><p class="k-body muted" style="margin-top:8px;">Connects to 80,000+ CCTV nodes without replacing hardware.</p></div>
+      <div class="card reveal" style="margin-bottom:18px;" data-d="3"><span class="k-h3" style="color:var(--cyan);">Layer 3 — WebRTC Browser Streaming</span><p class="k-body muted" style="margin-top:8px;">Ultra low-latency video streaming directly to command center browsers.</p></div>
+      <div class="card reveal" data-d="4"><span class="k-h3" style="color:var(--cyan);">Layer 4 — AI Analytics / Core Computer Vision Pipeline</span><p class="k-body muted" style="margin-top:8px;">Detects vehicles, number plates, occupants, and unusual movement patterns.</p></div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">Continues on next slide — Intelligence &amp; Command</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Continues on next slide — Intelligence &amp; Command</span></div>
 </section>
 
-<!-- ============ SLIDE 5 — ARCHITECTURE PART 2 ============ -->
-<section class="slide dark" data-title="System Architecture — Intelligence & Command">
-  <div class="chrome-bar"><span class="k-label">03 — System Architecture · Part 2</span><span class="k-label hint">05 / 19</span></div>
+<!-- ============ SLIDE 5 — SYSTEM OVERVIEW PART 2 ============ -->
+<section class="slide light" data-title="System Architecture — Intelligence & Command">
+  <div class="chrome-bar">
+    <div><span class="k-kicker">System Overview · Part 2</span></div>
+    <span class="k-caption muted">05 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Intelligence &amp; <em>Command</em></h2>
-    <div class="rule-short reveal" data-d="1"></div>
-    <div style="margin-top:20px;">
-      <div class="card reveal" data-d="2" style="margin-bottom:26px;">
-        <span class="k-label">Layer 5 · Dynamic AI Micro-Agents (5km Geo-Fence)</span>
-        <p class="k-body muted" style="margin-top:10px;max-width:1200px;">Spawns targeted lightweight AI workers only around active incident zones, using PostGIS spatial queries on camera location metadata.</p>
-      </div>
-      <div class="card reveal" data-d="3" style="margin-bottom:26px;">
-        <span class="k-label">Layer 6 · Sharded DB &amp; Redis Cache</span>
-        <p class="k-body muted" style="margin-top:10px;max-width:1200px;">Cross-references plate sightings with government records at target sub-millisecond speed.</p>
-      </div>
-      <div class="card reveal" data-d="4">
-        <span class="k-label">Layer 7–8 · GIS Dashboard &amp; Human Decision Loop</span>
-        <p class="k-body muted" style="margin-top:10px;max-width:1200px;">AI highlights intelligence → human officer verifies → immediate police action.</p>
-      </div>
+    <h2 class="k-h2 reveal" data-d="1">How Sentinel Works: Intelligence &amp; Command</h2>
+    <div style="margin-top:26px;">
+      <div class="card-highlight reveal" style="margin-bottom:18px;" data-d="2"><span class="k-h3" style="color:var(--cyan);">Layer 5 — Innovation: Dynamic AI Micro-Agents (5 KM Geo-Fence)</span><p class="k-body muted" style="margin-top:8px;">Spawns targeted lightweight AI workers only around active incident zones.</p></div>
+      <div class="card reveal" style="margin-bottom:18px;" data-d="3"><span class="k-h3" style="color:var(--cyan);">Layer 6 — Intelligence: Sharded DB &amp; Fast Redis Cache</span><p class="k-body muted" style="margin-top:8px;">Cross-references plate sightings with government records at target sub-millisecond speed.</p></div>
+      <div class="card reveal" style="background:var(--navy);" data-d="4"><span class="k-h3" style="color:#fff;">Layer 7 &amp; 8 — Command &amp; Human: GIS Dashboard &amp; Human Decision Loop</span><p class="k-body" style="margin-top:8px;color:var(--navy-text-muted);">AI highlights intelligence → Human officer verifies → Immediate police action.</p></div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">Layers 1–8, full ingestion-to-command pipeline</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Layers 1–8, full ingestion-to-command pipeline</span></div>
 </section>
 
-<!-- ============ SLIDE 6 — CORE AI INNOVATION ============ -->
+<!-- ============ SLIDE 6 — CORE AI INNOVATION (her original, + mechanism paragraph agreed) ============ -->
 <section class="slide light" data-title="Core AI Innovation — Geo-Fenced Micro-Agents">
-  <div class="chrome-bar"><span class="k-label">04 — Core AI Innovation</span><span class="k-label hint">06 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Core AI Innovation</span></div>
+    <span class="k-caption muted">06 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Instead of Searching the Whole City, <em>Search Where It Matters</em></h2>
-    <p class="k-body muted reveal" style="max-width:1300px;margin:16px 0 28px;" data-d="2">An incident — a watchlist hit, a flagged plate, or a manual investigator query — triggers agent spawning. Using PostGIS spatial queries against camera GPS metadata, Sentinel identifies all cameras within a 5km radius of the trigger location and spins up lightweight detection workers scoped only to those feeds, processing temporally-skipped frames (5 FPS) from live streams and local VMS recordings. Agents release back to standby after an idle window with no new activity.</p>
+    <h2 class="k-h2 reveal" data-d="1">Instead of Searching the Whole City, Search Where It Matters</h2>
+    <p class="k-body muted reveal" style="max-width:1300px;margin:12px 0 22px;" data-d="2">An incident — a watchlist hit, a flagged plate, or a manual investigator query — triggers agent spawning. Using PostGIS spatial queries against camera GPS metadata, Sentinel identifies all cameras within a 5 KM radius of the trigger location and spins up lightweight detection workers scoped only to those feeds. Agents release back to standby after an idle window with no new activity.</p>
     <div class="grid-2 reveal" data-d="3">
-      <div class="vline" style="padding-right:40px;">
-        <span class="k-label" style="color:var(--danger);">Conventional Approach</span>
+      <div class="card-outline">
+        <span class="k-kicker" style="color:var(--red);">Conventional Approach</span>
         <h3 class="k-h3" style="margin-top:10px;">Full-Network Continuous Processing</h3>
-        <p class="k-body muted" style="margin-top:8px;">Heavy AI models run on all 80,000+ camera feeds simultaneously, 24/7. Massive server cost, excessive power consumption, high latency.</p>
+        <p class="k-body muted" style="margin-top:8px;">Runs heavy AI models on all 80,000+ camera feeds simultaneously, 24/7.</p>
+        <p class="k-caption callout-warn" style="margin-top:12px;">⚠ Massive server cost, excessive power consumption, high latency.</p>
       </div>
-      <div style="padding-left:8px;">
-        <span class="k-label">Sentinel's Approach</span>
-        <h3 class="k-h3" style="margin-top:10px;">Dynamic 5km Geo-Fenced Micro-Agents</h3>
-        <p class="k-body muted" style="margin-top:8px;">Lightweight agents spawned only within a 5km radius of a triggering incident — investigators deployed to the scene, not searching the entire state.</p>
+      <div class="card-highlight">
+        <span class="k-kicker">Sentinel Agentic Approach</span>
+        <h3 class="k-h3" style="margin-top:10px;">Dynamic 5 KM Geo-Fenced AI Micro-Agents</h3>
+        <p class="k-body muted" style="margin-top:8px;">When an incident triggers, Sentinel spawns lightweight AI agents assigned specifically to nearby cameras within a 5 KM radius.</p>
+        <p class="k-caption" style="margin-top:12px;color:var(--cyan);">✓ Simple Analogy: Deploying investigators to the scene instead of searching the entire state.</p>
       </div>
     </div>
   </div>
-  <div class="foot-bar">
-    <div class="reveal" data-d="4"><span class="k-stat">90%+</span> <span class="k-body muted">Infrastructure Cost Savings <em>(Architecture Design Target)</em> — event-triggered geo-fenced agents vs. continuous statewide scanning</span></div>
-  </div>
+  <div class="foot-bar"><span class="k-body reveal" data-d="4"><strong>Target Architectural Outcome:</strong> Up to 90%+ target reduction in continuous AI compute load. <span class="muted">(Proposed design target)</span></span></div>
 </section>
 
-<!-- ============ SLIDE 7 — DUAL MODE ANALYTICS ============ -->
-<section class="slide dark" data-title="Dual-Mode Analytics">
-  <div class="chrome-bar"><span class="k-label">05 — Operational Flexibility</span><span class="k-label hint">07 / 19</span></div>
+<!-- ============ SLIDE 7 — DUAL-MODE ANALYTICS (her original + fixed Mode 2 contradiction) ============ -->
+<section class="slide light" data-title="Dual-Mode Analytics">
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Operational Flexibility</span></div>
+    <span class="k-caption muted">07 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Two Ways of Looking at Vehicles</h2>
-    <p class="k-caption muted reveal" data-d="1" style="margin-top:8px;">Both modes run concurrently on the same unified ingestion backbone.</p>
-    <div class="grid-2 reveal" style="margin-top:32px;" data-d="2">
-      <div class="vline" style="padding-right:40px;">
-        <span class="tag">Mode 1</span>
-        <h3 class="k-h3" style="margin-top:14px;">Targeted Investigation</h3>
-        <p class="k-body muted" style="margin-top:10px;">Full computer-vision pipeline — occupant detection, driver crops, deep tracking — activates only within an active 5km incident zone. Triggered for a specific target vehicle, e.g. <span style="font-family:var(--f-mono);color:var(--gold);">GJ01AB9999</span>.</p>
-        <ul class="dashlist" style="margin-top:14px;">
-          <li class="k-body">Search specific camera feeds</li>
-          <li class="k-body">Reconstruct movement history</li>
-          <li class="k-body">Extract driver/occupant crops</li>
+    <h2 class="k-h2 reveal" data-d="1">Dual-Mode AI Analytics: Two Ways of Looking at Vehicles</h2>
+    <p class="k-caption muted reveal" data-d="1">Both modes operate concurrently on the unified Sentinel ingestion backbone.</p>
+    <div class="grid-2 reveal" style="margin-top:26px;" data-d="2">
+      <div class="card" style="border-top:3px solid var(--cyan);border-radius:6px 6px 14px 14px;">
+        <span class="k-kicker">Mode 1 · Targeted Investigation</span>
+        <p class="k-body muted" style="margin-top:8px;">Triggered for a specific target vehicle (e.g., license GJ01AB9999). Full computer-vision pipeline — occupant detection, driver crops, deep tracking — activates only within an active 5 KM incident zone.</p>
+        <ul class="chevlist" style="margin-top:14px;">
+          <li>Search specific camera feeds</li>
+          <li>Reconstruct movement history</li>
+          <li>Extract driver/occupant crops</li>
         </ul>
-        <p class="k-caption hint" style="margin-top:6px;">Use case: high-priority active crime response.</p>
+        <div class="callout-outcome" style="margin-top:12px;"><span class="k-caption" style="font-weight:600;">Use Case: High-priority active crime response.</span></div>
       </div>
-      <div style="padding-left:8px;">
-        <span class="tag">Mode 2</span>
-        <h3 class="k-h3" style="margin-top:14px;">Continuous Vehicle Logging</h3>
-        <p class="k-body muted" style="margin-top:10px;">A lightweight, plate-only detector runs across all feeds in the background — cheaper than Mode 1's full pipeline, so the 90%+ compute-savings target holds even while every camera logs plates continuously.</p>
-        <ul class="dashlist" style="margin-top:14px;">
-          <li class="k-body">Index plate + time + junction</li>
-          <li class="k-body">Cross-reference with watchlists</li>
-          <li class="k-body">Instantly match suspicious plates</li>
+      <div class="card" style="border-top:3px solid var(--ink);border-radius:6px 6px 14px 14px;">
+        <span class="k-kicker" style="color:var(--gray);">Mode 2 · Continuous Vehicle Logging</span>
+        <p class="k-body muted" style="margin-top:8px;">Background recording of passing vehicle observations, using a lightweight, plate-only detector — cheaper than Mode 1's full pipeline, so the 90%+ compute-savings target holds even while every camera logs continuously.</p>
+        <ul class="chevlist" style="margin-top:14px;">
+          <li>Index plate + time + junction</li>
+          <li>Cross-reference with watchlists</li>
+          <li>Instantly match suspicious plates</li>
         </ul>
-        <p class="k-caption hint" style="margin-top:6px;">Use case: watchlist alerts &amp; audit trail history.</p>
+        <div class="callout-outcome" style="margin-top:12px;"><span class="k-caption" style="font-weight:600;">Use Case: Watchlist alerts &amp; audit trail history.</span></div>
       </div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">Dual-mode design preserves the geo-fencing compute-savings target</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Dual-mode design preserves the geo-fencing compute-savings target</span></div>
 </section>
 
-<!-- ============ SLIDE 8 — KEY FEATURES ============ -->
+<!-- ============ SLIDE 8 — KEY FEATURES (Harsha's feature list, new dedicated slide) ============ -->
 <section class="slide light" data-title="Key Features">
-  <div class="chrome-bar"><span class="k-label">06 — Key Features</span><span class="k-label hint">08 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Key Features</span></div>
+    <span class="k-caption muted">08 / 19</span>
+  </div>
   <div class="body-row">
     <div class="grid-cols-7 reveal" data-d="1">
-      <div class="card"><span class="k-label">Geo-Fenced Micro-Agents</span><p class="k-body muted" style="margin-top:8px;">Spawns lightweight AI workers within a 5km radius of a reported incident, reducing statewide GPU/CPU overhead by 90%+ (Design Target).</p></div>
-      <div class="card"><span class="k-label">Dual-Mode Processing</span><p class="k-body muted" style="margin-top:8px;">Targeted single-vehicle deep tracking alongside automated batch-logging and real-time watchlist cross-referencing.</p></div>
-      <div class="card"><span class="k-label">Sharded &amp; Redis-Cached Lookups</span><p class="k-body muted" style="margin-top:8px;">State-code partitioning (GJ01, GJ04…) with in-memory Redis caching, designed to handle 400,000+ plate queries/sec (Design Target).</p></div>
-      <div class="card"><span class="k-label">10-Second Evidence Clipping</span><p class="k-body muted" style="margin-top:8px;">Auto-cuts and archives a 10-second clip (5s pre / 5s post detection) to cloud/MinIO storage for instant legal proof.</p></div>
-      <div class="card"><span class="k-label">Occupant &amp; Driver Snapshots</span><p class="k-body muted" style="margin-top:8px;">High-resolution driver/occupant facial crops alongside plates for enhanced suspect identification.</p></div>
-      <div class="card"><span class="k-label">WebRTC GIS Dashboard</span><p class="k-body muted" style="margin-top:8px;">RTSP → WebRTC via MediaMTX, interactive Leaflet.js mapping, animated trajectories, instant audio alerts.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Dynamic Geo-Fenced AI Micro-Agents</span><p class="k-body muted" style="margin-top:6px;">Spawns lightweight AI workers within a 5km radius of a reported incident, reducing statewide GPU/CPU overhead by 90%+ (Design Target).</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Dual-Mode Processing</span><p class="k-body muted" style="margin-top:6px;">Targeted single-vehicle deep tracking alongside automated batch-logging and real-time watchlist cross-referencing.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Sharded &amp; Redis-Cached Lookups</span><p class="k-body muted" style="margin-top:6px;">State-code partitioning (GJ01, GJ04…) with in-memory Redis caching, designed to handle 400,000+ plate queries/sec (Design Target).</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">10-Second Evidence Clipping</span><p class="k-body muted" style="margin-top:6px;">Auto-cuts and archives a 10-second clip (5s pre / 5s post detection) to cloud/MinIO storage for instant legal proof.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Occupant &amp; Driver Snapshots</span><p class="k-body muted" style="margin-top:6px;">High-resolution driver/occupant facial crops alongside plates for enhanced suspect identification.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">WebRTC GIS Dashboard</span><p class="k-body muted" style="margin-top:6px;">RTSP → WebRTC via MediaMTX, interactive Leaflet.js mapping, animated trajectories, instant audio alerts.</p></div>
     </div>
-    <div class="card reveal" style="margin-top:24px;max-width:600px;" data-d="2"><span class="k-label">Zero-Hardware-Overhaul Integration</span><p class="k-body muted" style="margin-top:8px;">Direct ingestion of existing RTSP-over-TCP feeds from multi-vendor VMS/DVR/NVR — no camera replacement.</p></div>
+    <div class="card card-tight reveal" style="margin-top:16px;max-width:600px;" data-d="2"><span class="k-h3" style="font-size:16px;">Zero-Hardware-Overhaul Integration</span><p class="k-body muted" style="margin-top:6px;">Direct ingestion of existing RTSP-over-TCP feeds from multi-vendor VMS/DVR/NVR — no camera replacement.</p></div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">7 core features</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">7 core features</span></div>
 </section>
 
-<!-- ============ SLIDE 9 — INVESTIGATION WORKFLOW ============ -->
-<section class="slide dark" data-title="Investigation Workflow">
-  <div class="chrome-bar"><span class="k-label">07 — Investigation Workflow</span><span class="k-label hint">09 / 19</span></div>
+<!-- ============ SLIDE 9 — INVESTIGATION WORKFLOW (her original, unchanged) ============ -->
+<section class="slide light" data-title="Investigation Workflow">
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Investigation Workflow</span></div>
+    <span class="k-caption muted">09 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">From Number Plate to Complete <em>Investigation Trail</em></h2>
-    <div class="tl reveal" style="margin-top:40px;" data-d="2">
-      <div class="tl-spine"></div>
-      <div class="tl-item"><span class="tl-dot"></span><span class="k-label">01 · Plate Recognition</span><p class="k-body muted" style="margin-top:6px;">AI extracts plate text + camera timestamp.</p></div>
-      <div class="tl-item"><span class="tl-dot"></span><span class="k-label">02 · Historical Cross-Reference</span><p class="k-body muted" style="margin-top:6px;">Queries past sightings across all state nodes.</p></div>
-      <div class="tl-item" style="margin-bottom:0;"><span class="tl-dot"></span><span class="k-label">03 · Trajectory Reconstruction</span><p class="k-body muted" style="margin-top:6px;">Maps vehicle movement step-by-step on GIS.</p></div>
+    <h2 class="k-h2 reveal" data-d="1">From Number Plate to Complete Investigation Trail</h2>
+    <div class="grid-2" style="margin-top:30px;align-items:center;">
+      <div class="reveal" data-d="2">
+        <div class="tl-item"><div class="tl-num">1</div><div><span class="k-h3">Plate Recognition</span><p class="k-body muted" style="margin-top:4px;">AI extracts plate text + camera timestamp.</p></div></div>
+        <div class="tl-item"><div class="tl-num">2</div><div><span class="k-h3">Historical Cross-Reference</span><p class="k-body muted" style="margin-top:4px;">Queries past sightings across all state nodes.</p></div></div>
+        <div class="tl-item" style="margin-bottom:0;"><div class="tl-num">3</div><div><span class="k-h3">Trajectory Reconstruction</span><p class="k-body muted" style="margin-top:4px;">Maps vehicle movement step-by-step on GIS.</p></div></div>
+      </div>
+      <div class="card reveal" style="text-align:center;padding:16px;" data-d="3">
+        <span class="k-caption muted">Plate: GJ01 AB 9999 · Sedan · Black</span>
+        <div style="margin-top:10px;height:180px;border-radius:10px;background:linear-gradient(135deg,#1a2540,#0B1220);display:flex;align-items:center;justify-content:center;">
+          <span class="k-caption muted">[ live camera feed with plate bounding boxes ]</span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="foot-bar"><div class="k-body reveal" data-d="3"><strong style="font-family:var(--f-serif);">Outcome:</strong> Investigators view a clear chronological map of vehicle sightings instead of watching raw video logs.</div></div>
+  <div class="foot-bar"><span class="callout-outcome" style="padding:10px 18px;"><strong>Outcome:</strong> Investigators view a clear chronological map of vehicle sightings instead of watching raw video logs.</span></div>
 </section>
 
-<!-- ============ SLIDE 10 — HIGH SCALE DATA DESIGN ============ -->
+<!-- ============ SLIDE 10 — HIGH-SCALE DATA DESIGN (her original) ============ -->
 <section class="slide light" data-title="High-Scale Data Design">
-  <div class="chrome-bar"><span class="k-label">08 — High-Scale Data Design</span><span class="k-label hint">10 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">High-Scale Data Design</span></div>
+    <span class="k-caption muted">10 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">How Sentinel Handles <em>Millions</em> of Fast Vehicle Queries</h2>
-    <p class="k-body muted reveal" style="max-width:1300px;margin:14px 0 30px;" data-d="2">Database sharding splits data into regional partitions (GJ-01 Ahmedabad, GJ-04 Bhavnagar, etc.) so queries run faster; Redis in-memory cache keeps active watchlists immediately accessible.</p>
-    <div class="stat-grid reveal" data-d="3">
-      <div class="card"><span class="k-stat">400,000+</span><p class="k-body muted" style="margin-top:6px;">Plate Queries / Sec <em>(Architecture Design Target)</em> — via sharded Redis architecture.</p></div>
-      <div class="card"><span class="k-stat">&lt;0.5ms</span><p class="k-body muted" style="margin-top:6px;">Lookup Latency <em>(Architecture Design Target)</em> — for in-memory cache hits.</p></div>
+    <h2 class="k-h2 reveal" data-d="1">How Sentinel Handles Millions of Fast Vehicle Queries</h2>
+    <div class="grid-2 reveal" style="margin-top:24px;" data-d="2">
+      <div class="card"><span class="k-h3">🔀 State-Code Sharding</span><p class="k-body muted" style="margin-top:8px;"><strong>Database Sharding:</strong> Splitting a giant database into smaller regional sections (e.g., GJ01, GJ04, GJXX) so queries run faster.</p><div class="k-mono muted" style="margin-top:14px;">Partition → GJ-01 (Ahmedabad) | GJ-04 (Bhavnagar)</div></div>
+      <div class="card"><span class="k-h3">⚡ Redis In-Memory Cache</span><p class="k-body muted" style="margin-top:8px;"><strong>Redis Cache:</strong> Very fast temporary memory keeping active vehicle watchlists immediately accessible.</p><div class="k-mono muted" style="margin-top:14px;">RAM Cache Lookup Time: Target &lt; 0.5 ms</div></div>
+    </div>
+    <div class="grid-2 reveal" style="margin-top:20px;" data-d="3">
+      <div class="callout-outcome" style="text-align:center;"><span class="k-caption muted">Query Throughput Target</span><div class="k-stat" style="margin-top:4px;">400,000+</div><span class="k-caption muted">Plate Queries / Sec</span></div>
+      <div class="callout-outcome" style="text-align:center;"><span class="k-caption muted">Latency Target</span><div class="k-stat" style="margin-top:4px;">&lt;0.5ms</div><span class="k-caption muted">Vehicle Lookup</span></div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-body muted reveal" data-d="4">High-throughput database stability — sharding + caching designed to eliminate I/O bottlenecks and reliably absorb peak surveillance loads without database crashes.</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Architecture design targets — sharding + caching eliminate I/O bottlenecks at peak load.</span></div>
 </section>
 
-<!-- ============ SLIDE 11 — AUTOMATED EVIDENCE GENERATION ============ -->
-<section class="slide dark" data-title="Automated Evidence Generation">
-  <div class="chrome-bar"><span class="k-label">09 — Automated Case Packaging</span><span class="k-label hint">11 / 19</span></div>
-  <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Instant Legal Evidence Generation: <em>10-Second Smart Clips</em></h2>
-    <div class="flowrow reveal" style="margin-top:36px;" data-d="2">
-      <div class="flowchip">Pre-Detection · 5s<br><span class="hint" style="font-family:var(--f-sans);font-size:14px;">context before incident</span></div>
-      <div class="flowarrow">+</div>
-      <div class="flowchip" style="border-color:var(--gold);color:var(--gold);">AI Detection Event · Instant<br><span style="font-family:var(--f-sans);font-size:14px;color:var(--text-muted-dark);">vehicle/plate match identified</span></div>
-      <div class="flowarrow">+</div>
-      <div class="flowchip">Post-Detection · 5s<br><span class="hint" style="font-family:var(--f-sans);font-size:14px;">direction of escape</span></div>
-      <div class="flowarrow">=</div>
-      <div class="flowchip" style="border-color:var(--gold);color:var(--gold);">10-Sec Evidence Clip + Occupant Snapshot</div>
-    </div>
-    <p class="k-body muted reveal" style="margin-top:30px;max-width:1100px;" data-d="3">Archived to cloud/MinIO storage. Removes manual DVR extraction delays entirely.</p>
+<!-- ============ SLIDE 11 — AUTOMATED CASE PACKAGING (her original) ============ -->
+<section class="slide light" data-title="Automated Evidence Generation">
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Automated Case Packaging</span></div>
+    <span class="k-caption muted">11 / 19</span>
   </div>
-  <div class="foot-bar"><span class="k-caption hint reveal" data-d="4" style="max-width:1400px;">Automated feature designed to assist investigators. Every clip is hash-logged and stored read-only, preserving chain-of-custody integrity — evidence packaging remains subject to standard legal verification protocols.</span></div>
+  <div class="body-row">
+    <h2 class="k-h2 reveal" data-d="1">Automated Evidence Generation: 10-Second Smart Clips</h2>
+    <div class="card reveal" style="margin-top:24px;" data-d="2">
+      <span class="k-caption muted" style="text-align:center;display:block;">Proposed Automated Clip Generation Sequence:</span>
+      <div class="grid-3" style="margin-top:16px;gap:16px;">
+        <div class="card card-tight" style="text-align:center;"><span class="k-caption muted">Pre-Detection</span><div class="k-h2" style="margin:6px 0;color:var(--cyan);">5 Sec</div><span class="k-caption muted">Captures context prior to incident</span></div>
+        <div class="card card-tight" style="text-align:center;background:var(--navy);border:2px solid var(--red);"><span class="k-caption" style="color:var(--navy-text-muted);">AI Detection Event</span><div class="k-h2" style="margin:6px 0;color:var(--red);">Instant</div><span class="k-caption" style="color:var(--navy-text-muted);">Vehicle/Plate Match Identified</span></div>
+        <div class="card card-tight" style="text-align:center;"><span class="k-caption muted">Post-Detection</span><div class="k-h2" style="margin:6px 0;color:var(--cyan);">5 Sec</div><span class="k-caption muted">Captures vehicle direction of escape</span></div>
+      </div>
+      <div class="callout-solution" style="margin-top:16px;"><span class="k-body" style="color:#fff;">= 10-Second Automated Evidence Video Clip + Driver/Occupant Snapshot Extraction</span></div>
+    </div>
+  </div>
+  <div class="foot-bar"><span class="k-caption muted" style="max-width:1500px;">Note: Proposed automated feature designed to assist investigators. Every clip is hash-logged and stored read-only, preserving chain-of-custody integrity — evidence packaging remains subject to standard legal verification protocols.</span></div>
 </section>
 
-<!-- ============ SLIDE 12 — GIS COMMAND DASHBOARD ============ -->
+<!-- ============ SLIDE 12 — UNIFIED OPERATIONAL INTERFACE (her original) ============ -->
 <section class="slide light" data-title="Live GIS Command Dashboard">
-  <div class="chrome-bar"><span class="k-label">10 — Unified Operational Interface</span><span class="k-label hint">12 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Unified Operational Interface</span></div>
+    <span class="k-caption muted">12 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">One Map, <em>Unified Intelligence</em></h2>
-    <div class="grid-cols-7 reveal" style="margin-top:30px;" data-d="2">
-      <div class="card"><span class="k-label">Geospatial Mapping</span><p class="k-body muted" style="margin-top:8px;">Live camera locations &amp; active 5km incident zones (Leaflet.js).</p></div>
-      <div class="card"><span class="k-label">WebRTC Live Video</span><p class="k-body muted" style="margin-top:8px;">Low-latency live-stream popups on click, animated vehicle trajectories.</p></div>
-      <div class="card"><span class="k-label">Automated Alerts</span><p class="k-body muted" style="margin-top:8px;">Instant audio-visual notifications when a target vehicle is spotted.</p></div>
+    <h2 class="k-h2 reveal" data-d="1">Live GIS Command Dashboard: One Map, Unified Intelligence</h2>
+    <div class="grid-2 reveal" style="margin-top:24px;align-items:center;" data-d="2">
+      <div style="height:340px;border-radius:14px;background:linear-gradient(135deg,#152238,#0B1220);display:flex;align-items:center;justify-content:center;">
+        <span class="k-caption muted">[ command center dashboard screenshot ]</span>
+      </div>
+      <div>
+        <div class="card card-tight" style="margin-bottom:14px;"><span class="k-h3" style="font-size:16px;">🗺 Geospatial Mapping</span><p class="k-body muted" style="margin-top:6px;">Live camera locations &amp; active 5 KM incident zones.</p></div>
+        <div class="card card-tight" style="margin-bottom:14px;"><span class="k-h3" style="font-size:16px;">▶ WebRTC Live Video</span><p class="k-body muted" style="margin-top:6px;">Low-latency live stream popups on click.</p></div>
+        <div class="card card-tight"><span class="k-h3" style="font-size:16px;">🔔 Automated Alerts</span><p class="k-body muted" style="margin-top:6px;">Instant notifications when target vehicle is spotted.</p></div>
+      </div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-body muted reveal" data-d="3">Investigators no longer switch between disconnected systems — Sentinel unifies video, maps, and database records into one operational view.</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Investigators no longer switch between disconnected systems — Sentinel unifies video, maps, and database records into one operational view.</span></div>
 </section>
 
-<!-- ============ SLIDE 13 — MULTI-AGENCY COMMAND ============ -->
-<section class="slide dark" data-title="Multi-Agency Command">
-  <div class="chrome-bar"><span class="k-label">11 — Inter-Departmental Synergy</span><span class="k-label hint">13 / 19</span></div>
-  <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Unified Multi-Agency Command: <em>Shared Platform, Role-Based Access</em></h2>
-    <div class="grid-3 reveal" style="margin-top:32px;" data-d="2">
-      <div class="card"><span class="k-label">Police Department</span><p class="k-body muted" style="margin-top:8px;">Criminal investigation, trajectory tracking, automated alert dispatch.</p></div>
-      <div class="card" style="border-color:var(--gold);"><span class="k-label" style="color:var(--gold);">Sentinel Command Center</span><p class="k-body muted" style="margin-top:8px;">Unified role-based data hub, RBAC-governed.</p></div>
-      <div class="card"><span class="k-label">RTO &amp; Municipal</span><p class="k-body muted" style="margin-top:8px;">Vehicle registration lookup &amp; city infrastructure monitoring.</p></div>
-    </div>
-    <p class="k-body muted reveal" style="margin-top:28px;max-width:1300px;" data-d="3">Health &amp; Panchayat feeds are included in the shared camera backbone under non-investigative, view-limited access. Delivers a central WebRTC GIS situational dashboard with department-wise layer toggling.</p>
+<!-- ============ SLIDE 13 — INTER-DEPARTMENTAL SYNERGY (her original + RBAC audit logging fix) ============ -->
+<section class="slide light" data-title="Multi-Agency Command">
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Inter-Departmental Synergy</span></div>
+    <span class="k-caption muted">13 / 19</span>
   </div>
-  <div class="foot-bar"><span class="k-body reveal" data-d="4"><strong style="font-family:var(--f-serif);">RBAC</strong> ensures each department accesses strictly relevant intelligence. Every officer query is logged and auditable, preventing unauthorized lookups.</span></div>
+  <div class="body-row">
+    <h2 class="k-h2 reveal" data-d="1">Multi-Agency Command: Shared Platform Architecture</h2>
+    <div class="grid-3 reveal" style="margin-top:26px;align-items:center;" data-d="2">
+      <div class="card"><span class="k-h3" style="font-size:17px;">👮 Police Department</span><p class="k-body muted" style="margin-top:8px;">Criminal investigation, trajectory tracking, and automated alert dispatch.</p></div>
+      <div class="card" style="background:var(--navy);text-align:center;"><span class="k-kicker">Central Core</span><h3 class="k-h3" style="margin-top:8px;color:#fff;">Sentinel Command Center</h3><p class="k-caption" style="margin-top:4px;color:var(--navy-text-muted);">Unified Role-Based Data Hub</p></div>
+      <div class="card"><span class="k-h3" style="font-size:17px;">🪪 RTO &amp; Municipal</span><p class="k-body muted" style="margin-top:8px;">Vehicle registration lookup &amp; city infrastructure monitoring.</p></div>
+    </div>
+    <p class="k-body muted reveal" style="margin-top:22px;max-width:1300px;" data-d="3">Health &amp; Panchayat feeds are included in the shared camera backbone under non-investigative, view-limited access.</p>
+  </div>
+  <div class="foot-bar"><span class="k-body muted">Role-Based Access Control (RBAC) ensures each department accesses strictly relevant intelligence. <strong style="color:var(--ink);">Every officer query is logged and auditable</strong>, preventing unauthorized lookups.</span></div>
 </section>
 
-<!-- ============ SLIDE 14 — BENEFITS & IMPACT ============ -->
+<!-- ============ SLIDE 14 — BENEFITS & IMPACT (Harsha's benefits list, new dedicated slide) ============ -->
 <section class="slide light" data-title="Benefits & Impact">
-  <div class="chrome-bar"><span class="k-label">12 — Benefits &amp; Impact</span><span class="k-label hint">14 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Benefits &amp; Impact</span></div>
+    <span class="k-caption muted">14 / 19</span>
+  </div>
   <div class="body-row">
     <div class="grid-cols-7 reveal" data-d="1">
-      <div class="card"><span class="k-label" style="color:var(--gold);">90%+ Cost Savings <span class="hint" style="font-family:var(--f-sans);text-transform:none;letter-spacing:0;">(Design Target)</span></span><p class="k-body muted" style="margin-top:8px;">Event-triggered geo-fenced agents vs. continuous statewide scanning cuts GPU compute, server memory, and cloud bandwidth expenses.</p></div>
-      <div class="card"><span class="k-label" style="color:var(--gold);">Sub-3-Second Response <span class="hint" style="font-family:var(--f-sans);text-transform:none;letter-spacing:0;">(Design Target)</span></span><p class="k-body muted" style="margin-top:8px;">Reduces vehicle trajectory reconstruction from hours of manual CCTV playback to under 3 seconds.</p></div>
-      <div class="card"><span class="k-label">Database Stability</span><p class="k-body muted" style="margin-top:8px;">Sharding + Redis caching eliminates I/O bottlenecks, designed to reliably handle 400,000+ plate queries/sec at peak load.</p></div>
-      <div class="card"><span class="k-label">Instant Legal Evidence</span><p class="k-body muted" style="margin-top:8px;">Automated 10-second proof clipping plus high-res occupant/driver crops removes manual DVR extraction delays.</p></div>
-      <div class="card"><span class="k-label">Unified Multi-Agency Command</span><p class="k-body muted" style="margin-top:8px;">One WebRTC GIS dashboard for Police, RTO, and Municipal teams, with layer toggling and real-time alerts.</p></div>
-      <div class="card"><span class="k-label">High Availability</span><p class="k-body muted" style="margin-top:8px;">Containerized microservices target 100% dashboard uptime, backed by exponential-backoff auto-reconnection across 80,000+ nodes.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;color:var(--cyan);">90%+ Infrastructure Cost Savings <span class="k-caption muted" style="text-transform:none;">(Design Target)</span></span><p class="k-body muted" style="margin-top:6px;">Event-triggered geo-fenced agents vs. continuous statewide scanning cuts GPU compute, server memory, and cloud bandwidth expenses.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;color:var(--cyan);">Sub-3-Second Incident Response <span class="k-caption muted" style="text-transform:none;">(Design Target)</span></span><p class="k-body muted" style="margin-top:6px;">Reduces vehicle trajectory reconstruction from hours of manual CCTV playback to under 3 seconds.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">High-Throughput Database Stability</span><p class="k-body muted" style="margin-top:6px;">Sharding + Redis caching eliminates I/O bottlenecks, reliably handling 400,000+ plate queries/sec at peak load.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Instant Legal Evidence Generation</span><p class="k-body muted" style="margin-top:6px;">Automated 10-second proof clipping plus high-res occupant/driver crops removes manual DVR extraction delays.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Unified Multi-Agency Command</span><p class="k-body muted" style="margin-top:6px;">One WebRTC GIS dashboard for Police, RTO, and Municipal teams, with layer toggling and real-time alerts.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">High Availability &amp; Network Resilience</span><p class="k-body muted" style="margin-top:6px;">Containerized microservices target 100% dashboard uptime, backed by exponential-backoff auto-reconnection.</p></div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">6 measurable impact areas</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">6 measurable impact areas</span></div>
 </section>
 
-<!-- ============ SLIDE 15 — SECURITY, PRIVACY & GOVERNANCE ============ -->
-<section class="slide dark" data-title="Security, Privacy & Governance">
-  <div class="chrome-bar"><span class="k-label">13 — Security, Privacy &amp; Governance</span><span class="k-label hint">15 / 19</span></div>
+<!-- ============ SLIDE 15 — SECURITY, PRIVACY & GOVERNANCE (new, agreed addition) ============ -->
+<section class="slide light" data-title="Security, Privacy & Governance">
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Security, Privacy &amp; Governance</span></div>
+    <span class="k-caption muted">15 / 19</span>
+  </div>
   <div class="body-row">
     <div class="grid-cols-7 reveal" data-d="1">
-      <div class="card"><span class="k-label">Role-Based Access Control</span><p class="k-body muted" style="margin-top:8px;">Each department — Police, RTO, Municipal — sees only what it's authorized to see.</p></div>
-      <div class="card"><span class="k-label">Full Audit Logging</span><p class="k-body muted" style="margin-top:8px;">Every officer query is logged and reviewable, preventing misuse.</p></div>
-      <div class="card"><span class="k-label">Evidentiary Integrity</span><p class="k-body muted" style="margin-top:8px;">Auto-generated clips are hash-logged and read-only, preserving chain-of-custody for court use.</p></div>
-      <div class="card"><span class="k-label">Encryption</span><p class="k-body muted" style="margin-top:8px;">Data encrypted in transit (TLS) and at rest for all stored evidence and query logs.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Role-Based Access Control</span><p class="k-body muted" style="margin-top:6px;">Each department — Police, RTO, Municipal — sees only what it's authorized to see.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Full Audit Logging</span><p class="k-body muted" style="margin-top:6px;">Every officer query is logged and reviewable, preventing misuse.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Evidentiary Integrity</span><p class="k-body muted" style="margin-top:6px;">Auto-generated clips are hash-logged and read-only, preserving chain-of-custody for court use.</p></div>
+      <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Encryption</span><p class="k-body muted" style="margin-top:6px;">Data encrypted in transit (TLS) and at rest for all stored evidence and query logs.</p></div>
     </div>
-    <div class="placeholder-box reveal" style="margin-top:26px;" data-d="2">
-      <span class="k-label">Data Retention Policy — <em>PLACEHOLDER</em></span>
+    <div class="placeholder-box reveal" style="margin-top:20px;" data-d="2">
+      <span class="k-h3" style="font-size:16px;color:var(--orange);">Data Retention Policy — PLACEHOLDER</span>
       <p class="k-body muted" style="margin-top:8px;">[ Team to define retention windows — e.g. non-flagged Mode 2 logs retained 30/90 days; flagged/watchlist matches retained per case lifecycle. ]</p>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">Direct answer to NFSU / forensic-evaluation criteria</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Direct answer to NFSU / forensic-evaluation criteria</span></div>
 </section>
 
-<!-- ============ SLIDE 16 — INFRASTRUCTURE RESILIENCE ============ -->
+<!-- ============ SLIDE 16 — INFRASTRUCTURE STABILITY (her original, unchanged) ============ -->
 <section class="slide light" data-title="Infrastructure Resilience">
-  <div class="chrome-bar"><span class="k-label">14 — Infrastructure Stability</span><span class="k-label hint">16 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">Infrastructure Stability</span></div>
+    <span class="k-caption muted">16 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">Resilience: Built for a Network <em>That Cannot Stop</em></h2>
-    <div class="grid-2 reveal" style="margin-top:34px;" data-d="2">
-      <div class="vline" style="padding-right:40px;">
-        <span class="k-label">Containerized Microservices</span>
-        <p class="k-body muted" style="margin-top:10px;">If heavy AI processing spikes, web streaming and database lookup remain unaffected.</p>
-      </div>
-      <div style="padding-left:8px;">
-        <span class="k-label">Network Auto-Reconnection</span>
-        <p class="k-body muted" style="margin-top:10px;">Exponential-backoff auto-reconnection logic — if a regional camera node drops, local buffering holds footage and reconnects without human intervention.</p>
-      </div>
+    <h2 class="k-h2 reveal" data-d="1">Resilience: Built for a Network That Cannot Stop</h2>
+    <div class="grid-2 reveal" style="margin-top:26px;" data-d="2">
+      <div class="card"><span class="k-h3">🧩 Containerized Microservices</span><p class="k-body muted" style="margin-top:8px;"><strong>Microservices:</strong> Packaging system functions into independent workers. If heavy AI processing spikes, web streaming and database lookup remain unaffected.</p></div>
+      <div class="card"><span class="k-h3">📶 Network Auto-Reconnection</span><p class="k-body muted" style="margin-top:8px;">If network connection drops at a regional camera node, local buffering holds footage and automatically reconnects without human intervention.</p></div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-body reveal" data-d="3"><strong style="font-family:var(--f-serif);">Goal:</strong> Zero single point of failure across 80,000+ CCTV nodes.</span></div>
+  <div class="foot-bar"><span class="k-body"><strong>Architectural Goal:</strong> Zero single point of failure across 80,000+ CCTV nodes. <span class="muted">Resilience Standard: Production Grade</span></span></div>
 </section>
 
-<!-- ============ SLIDE 17 — CURRENT BUILD STATUS (highlighted) ============ -->
-<section class="slide dark" data-title="Current Build Status">
-  <div class="chrome-bar"><span class="k-label" style="color:var(--gold);">15 — Current Build Status</span><span class="k-label hint">17 / 19</span></div>
+<!-- ============ SLIDE 17 — CURRENT BUILD STATUS (new, agreed addition, highlighted placeholder) ============ -->
+<section class="slide light" data-title="Current Build Status">
+  <div class="chrome-bar">
+    <div><span class="k-kicker" style="color:var(--orange);">Current Build Status</span></div>
+    <span class="k-caption muted">17 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">What We've <em>Actually Built</em></h2>
-    <div class="placeholder-box reveal" style="margin-top:28px;" data-d="2">
-      <span class="k-label">Fill before submission</span>
+    <h2 class="k-h2 reveal" data-d="1">What We've Actually Built</h2>
+    <div class="placeholder-box reveal" style="margin-top:24px;" data-d="2">
+      <span class="k-h3" style="font-size:16px;color:var(--orange);">⚠ Fill before submission</span>
       <p class="k-body muted" style="margin-top:12px;max-width:1300px;">[ INSERT: real screenshot / demo GIF of the working dashboard · number of cameras actually connected · real detection count from testing · any genuinely measured latency numbers. This slide is the single highest-weighted slide for the "platform maturity" judging criterion — replace every bracket before the finale. ]</p>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption" style="color:var(--gold);">⚠ Placeholder slide — team action required</span></div>
+  <div class="foot-bar"><span class="k-caption" style="color:var(--orange);font-weight:600;">⚠ Placeholder slide — team action required</span></div>
 </section>
 
-<!-- ============ SLIDE 18 — TEAM ============ -->
+<!-- ============ SLIDE 18 — TEAM (new, agreed addition) ============ -->
 <section class="slide light" data-title="Team">
-  <div class="chrome-bar"><span class="k-label">16 — The Team</span><span class="k-label hint">18 / 19</span></div>
+  <div class="chrome-bar">
+    <div><span class="k-kicker">The Team</span></div>
+    <span class="k-caption muted">18 / 19</span>
+  </div>
   <div class="body-row">
-    <h2 class="k-h2 reveal" data-d="1">The Team Behind <em>Sentinel</em></h2>
-    <div class="grid-3 reveal" style="margin-top:36px;" data-d="2">
-      <div class="member-card"><span class="k-h3">Jignesh</span><p class="k-label" style="margin-top:6px;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
-      <div class="member-card"><span class="k-h3">Harsh Sanghavi</span><p class="k-label" style="margin-top:6px;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
-      <div class="member-card"><span class="k-h3">Nirav Prajapati</span><p class="k-label" style="margin-top:6px;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
+    <h2 class="k-h2 reveal" data-d="1">The Team Behind Sentinel</h2>
+    <div class="grid-3 reveal" style="margin-top:30px;" data-d="2">
+      <div class="member-card"><span class="k-h3">Jignesh</span><p class="k-caption muted" style="margin-top:6px;text-transform:uppercase;letter-spacing:0.05em;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
+      <div class="member-card"><span class="k-h3">Harsh Sanghavi</span><p class="k-caption muted" style="margin-top:6px;text-transform:uppercase;letter-spacing:0.05em;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
+      <div class="member-card"><span class="k-h3">Nirav Prajapati</span><p class="k-caption muted" style="margin-top:6px;text-transform:uppercase;letter-spacing:0.05em;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption hint">Fill in roles before submission</span><span class="k-label hint">GP-HACK-2026</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Fill in roles before submission</span></div>
 </section>
 
-<!-- ============ SLIDE 19 — FINAL VISION ============ -->
+<!-- ============ SLIDE 19 — THE FINAL VISION (her original, unchanged) ============ -->
 <section class="slide dark chromeless" data-title="Final Vision">
   <div style="display:flex;flex-direction:column;justify-content:center;height:100%;">
-    <span class="k-label reveal" data-d="1">The Final Vision</span>
-    <div class="rule-short reveal" data-d="1"></div>
-    <h2 class="k-h1 reveal" data-d="2" style="max-width:1500px;">FROM 80,000+ CAMERAS TO <em>ONE INTELLIGENT PICTURE</em></h2>
-    <p class="k-lead muted reveal" style="max-width:1200px;margin-top:24px;" data-d="3">Project Sentinel is designed to transform existing CCTV infrastructure into a scalable, intelligent investigation network — without replacing a single camera.</p>
-    <div class="flowrow reveal" style="margin-top:44px;" data-d="4">
-      <div class="flowchip">80,000+ Nodes</div><div class="flowarrow">→</div>
-      <div class="flowchip">RTSP + WebRTC</div><div class="flowarrow">→</div>
-      <div class="flowchip">5km Geo-Fence Agents</div><div class="flowarrow">→</div>
-      <div class="flowchip">Sharded DB + Cache</div><div class="flowarrow">→</div>
-      <div class="flowchip" style="border-color:var(--gold);color:var(--gold);">Live GIS Dashboard</div>
+    <span class="k-kicker reveal" data-d="1">The Final Vision · Gujarat Police Innovation Hackathon 2026</span>
+    <h2 class="k-h1 reveal" style="margin-top:14px;max-width:1500px;" data-d="2">FROM 80,000+ CAMERAS TO ONE INTELLIGENT PICTURE</h2>
+    <p class="k-lead muted reveal" style="max-width:1200px;margin-top:20px;" data-d="3">Project Sentinel is designed to transform existing CCTV infrastructure into a scalable, intelligent investigation network — without replacing a single camera.</p>
+    <div class="flowrow reveal" style="margin-top:40px;" data-d="4">
+      <div class="flowchip">80,000 Nodes<br><span class="muted" style="font-weight:400;">Existing CCTV</span></div><div class="flowarrow">›</div>
+      <div class="flowchip">Ingestion<br><span class="muted" style="font-weight:400;">RTSP + WebRTC</span></div><div class="flowarrow">›</div>
+      <div class="flowchip">Agents<br><span class="muted" style="font-weight:400;">5 KM Geo-Fence</span></div><div class="flowarrow">›</div>
+      <div class="flowchip">Intelligence<br><span class="muted" style="font-weight:400;">Sharded DB + Cache</span></div><div class="flowarrow">›</div>
+      <div class="flowchip" style="border-color:var(--cyan);color:var(--cyan);">Command<br><span style="font-weight:400;color:var(--navy-text-muted);">Live GIS Dashboard</span></div>
     </div>
-    <div class="reveal" style="margin-top:64px;display:flex;align-items:center;justify-content:space-between;max-width:1600px;" data-d="5">
+    <div class="reveal" style="margin-top:60px;display:flex;align-items:center;justify-content:space-between;max-width:1600px;border-top:1px solid rgba(255,255,255,0.12);padding-top:24px;" data-d="5">
       <div>
-        <div class="k-h3">PROJECT SENTINEL</div>
+        <div class="k-h3" style="color:var(--orange);">PROJECT SENTINEL</div>
         <div class="k-caption muted">Gujarat Police Innovation Hackathon 2026</div>
       </div>
-      <span class="tag">"Protect What Matters."</span>
+      <span class="theme-tag" style="background:var(--cyan);color:var(--navy);padding:12px 22px;border-radius:8px;">PROTECT WHAT MATTERS.</span>
     </div>
   </div>
 </section>
@@ -589,17 +595,11 @@ ul.dashlist li::before { content: "—"; position: absolute; left: 0; color: var
 </main>
 </div>
 
-<!-- Inline-edit affordance -->
 <div class="edit-hotzone" id="editHotzone"></div>
 <button class="edit-toggle" id="editToggle" title="Edit mode (E)">✏</button>
-
-<!-- Nav controls -->
 <div class="deck-controls" id="deckControls"></div>
 
 <script>
-/* ===========================================
-   SLIDE PRESENTATION CONTROLLER
-   =========================================== */
 class SlidePresentation {
     constructor() {
         this.slides = Array.from(document.querySelectorAll('.slide'));
@@ -613,7 +613,6 @@ class SlidePresentation {
         this.setupWheelNav();
         this.showSlide(0);
     }
-
     buildControls() {
         this.dots = [];
         const countEl = document.createElement('span');
@@ -628,7 +627,6 @@ class SlidePresentation {
         });
         this.controls.appendChild(countEl);
     }
-
     setupStageScale() {
         const scale = () => {
             const factor = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
@@ -639,7 +637,6 @@ class SlidePresentation {
         scale();
         window.addEventListener('resize', scale);
     }
-
     setupKeyboardNav() {
         document.addEventListener('keydown', (e) => {
             if (e.target.getAttribute && e.target.getAttribute('contenteditable') === 'true') return;
@@ -649,7 +646,6 @@ class SlidePresentation {
             if (e.key === 'End') this.showSlide(this.slides.length - 1);
         });
     }
-
     setupTouchNav() {
         let startX = 0;
         document.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
@@ -658,7 +654,6 @@ class SlidePresentation {
             if (Math.abs(dx) > 60) { dx < 0 ? this.next() : this.prev(); }
         }, { passive: true });
     }
-
     setupWheelNav() {
         let locked = false;
         document.addEventListener('wheel', (e) => {
@@ -669,10 +664,8 @@ class SlidePresentation {
             setTimeout(() => locked = false, 500);
         }, { passive: true });
     }
-
     next() { this.showSlide(this.currentSlide + 1); }
     prev() { this.showSlide(this.currentSlide - 1); }
-
     showSlide(index) {
         this.currentSlide = Math.max(0, Math.min(index, this.slides.length - 1));
         this.slides.forEach((slide, i) => {
@@ -683,32 +676,23 @@ class SlidePresentation {
         this.countEl.textContent = `${this.currentSlide + 1} / ${this.slides.length}`;
     }
 }
-const presentation = new SlidePresentation();
+new SlidePresentation();
 
-/* ===========================================
-   INLINE EDIT MODE — hover hotzone with JS delay (not CSS ~)
-   =========================================== */
 class InlineEditor {
     constructor() {
         this.isActive = false;
         this.toggle = document.getElementById('editToggle');
         this.hotzone = document.getElementById('editHotzone');
-        this.storageKey = 'sentinel-deck-edits-v1';
+        this.storageKey = 'sentinel-deck-v2-edits';
         this.bindHover();
         this.toggle.addEventListener('click', () => this.toggleEditMode());
         this.hotzone.addEventListener('click', () => this.toggleEditMode());
         document.addEventListener('keydown', (e) => {
-            if ((e.key === 'e' || e.key === 'E') && !(e.target.getAttribute && e.target.getAttribute('contenteditable'))) {
-                this.toggleEditMode();
-            }
-            if (e.key === 's' && (e.metaKey || e.ctrlKey) && this.isActive) {
-                e.preventDefault();
-                this.save();
-            }
+            if ((e.key === 'e' || e.key === 'E') && !(e.target.getAttribute && e.target.getAttribute('contenteditable'))) this.toggleEditMode();
+            if (e.key === 's' && (e.metaKey || e.ctrlKey) && this.isActive) { e.preventDefault(); this.save(); }
         });
         this.restore();
     }
-
     bindHover() {
         let hideTimeout = null;
         const show = () => { clearTimeout(hideTimeout); this.toggle.classList.add('show'); };
@@ -718,33 +702,27 @@ class InlineEditor {
         this.toggle.addEventListener('mouseenter', show);
         this.toggle.addEventListener('mouseleave', hide);
     }
-
     toggleEditMode() {
         this.isActive = !this.isActive;
         this.toggle.classList.toggle('active', this.isActive);
-        const editableSelectors = 'h1, h2, h3, p, span.k-label, span.k-stat, div.k-body, li';
         document.querySelectorAll('.slide').forEach(slide => {
-            slide.querySelectorAll(editableSelectors).forEach(el => {
+            slide.querySelectorAll('h1, h2, h3, p, span, li, div.k-body').forEach(el => {
                 el.setAttribute('contenteditable', this.isActive ? 'true' : 'false');
             });
         });
         if (!this.isActive) this.save();
     }
-
     save() {
         const data = {};
         document.querySelectorAll('.slide').forEach((slide, i) => { data[i] = slide.innerHTML; });
         try { localStorage.setItem(this.storageKey, JSON.stringify(data)); } catch (e) {}
     }
-
     restore() {
         try {
             const raw = localStorage.getItem(this.storageKey);
             if (!raw) return;
             const data = JSON.parse(raw);
-            document.querySelectorAll('.slide').forEach((slide, i) => {
-                if (data[i]) slide.innerHTML = data[i];
-            });
+            document.querySelectorAll('.slide').forEach((slide, i) => { if (data[i]) slide.innerHTML = data[i]; });
         } catch (e) {}
     }
 }
