@@ -384,10 +384,10 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
         <div class="tl-item"><div class="tl-num">2</div><div><span class="k-h3">Historical Cross-Reference</span><p class="k-body muted" style="margin-top:4px;">Queries past sightings across all state nodes.</p></div></div>
         <div class="tl-item" style="margin-bottom:0;"><div class="tl-num">3</div><div><span class="k-h3">Trajectory Reconstruction</span><p class="k-body muted" style="margin-top:4px;">Maps vehicle movement step-by-step on GIS.</p></div></div>
       </div>
-      <div class="card reveal" style="text-align:center;padding:16px;" data-d="3">
-        <span class="k-caption muted">Plate: GJ01 AB 9999 · Sedan · Black</span>
-        <div style="margin-top:10px;height:180px;border-radius:10px;background:linear-gradient(135deg,#1a2540,#0B1220);display:flex;align-items:center;justify-content:center;">
-          <span class="k-caption muted">[ live camera feed with plate bounding boxes ]</span>
+      <div class="card reveal" style="text-align:center;padding:12px;" data-d="3">
+        <span class="k-caption muted">Agent-4 Investigation — live build screenshot</span>
+        <div style="margin-top:8px;border-radius:10px;overflow:hidden;border:1px solid var(--hairline);">
+          <video src="assets/screens/agent-investigation.webm" poster="assets/screens/agent-investigation.png" autoplay loop muted playsinline style="display:block;width:100%;"></video>
         </div>
       </div>
     </div>
@@ -445,8 +445,8 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
   <div class="body-row">
     <h2 class="k-h2 reveal" data-d="1">Live GIS Command Dashboard: One Map, Unified Intelligence</h2>
     <div class="grid-2 reveal" style="margin-top:24px;align-items:center;" data-d="2">
-      <div style="height:340px;border-radius:14px;background:linear-gradient(135deg,#152238,#0B1220);display:flex;align-items:center;justify-content:center;">
-        <span class="k-caption muted">[ command center dashboard screenshot ]</span>
+      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--hairline);">
+        <video src="assets/screens/camera-tracking.webm" poster="assets/screens/camera-tracking.png" autoplay loop muted playsinline style="display:block;width:100%;"></video>
       </div>
       <div>
         <div class="card card-tight" style="margin-bottom:14px;"><span class="k-h3" style="font-size:16px;">Geospatial Mapping</span><p class="k-body muted" style="margin-top:6px;">Live camera locations &amp; active 5 KM incident zones.</p></div>
@@ -455,7 +455,7 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
       </div>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption muted">Investigators no longer switch between disconnected systems — Sentinel unifies video, maps, and database records into one operational view.</span></div>
+  <div class="foot-bar"><span class="k-caption muted" style="max-width:850px;display:inline-block;">Investigators no longer switch between disconnected systems — one unified operational view.</span></div>
 </section>
 
 <!-- ============ SLIDE 13 — INTER-DEPARTMENTAL SYNERGY (her original + RBAC audit logging fix) ============ -->
@@ -540,12 +540,22 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
   </div>
   <div class="body-row">
     <h2 class="k-h2 reveal" data-d="1">What We've Actually Built</h2>
-    <div class="placeholder-box reveal" style="margin-top:24px;" data-d="2">
-      <span class="k-h3" style="font-size:16px;color:var(--orange);">Fill before submission</span>
-      <p class="k-body muted" style="margin-top:12px;max-width:1300px;">[ INSERT: real screenshot / demo GIF of the working dashboard · number of cameras actually connected · real detection count from testing · any genuinely measured latency numbers. This slide is the single highest-weighted slide for the "platform maturity" judging criterion — replace every bracket before the finale. ]</p>
+    <div class="grid-2 reveal" style="margin-top:20px;align-items:start;" data-d="2">
+      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--hairline);">
+        <video src="assets/screens/command-center.webm" poster="assets/screens/command-center.png" autoplay loop muted playsinline style="display:block;width:100%;"></video>
+      </div>
+      <div>
+        <div class="card card-tight" style="margin-bottom:12px;"><span class="k-h3" style="font-size:15px;">AI Swarm Command Center</span><p class="k-body muted" style="margin-top:6px;">Live ANPR feed panel, real-time KPI bar (active agents, archive searches, alerts), geospatial corridor map, 10-agent swarm grid, and a scrolling swarm terminal — all functioning and wired to live state.</p></div>
+        <div class="card card-tight" style="margin-bottom:12px;"><span class="k-h3" style="font-size:15px;">Agent-4 Investigation View</span><p class="k-body muted" style="margin-top:6px;">5km geo-fence search zone, archive search progress bar with live stats, investigation timeline, and target-match reveal panel.</p></div>
+        <div class="card card-tight"><span class="k-h3" style="font-size:15px;">Multi-Camera Tracking</span><p class="k-body muted" style="margin-top:6px;">Dual camera feed cards with live handoff, route corridor map, and multi-agent handoff telemetry log.</p></div>
+      </div>
+    </div>
+    <div class="placeholder-box reveal" style="margin-top:16px;" data-d="3">
+      <span class="k-h3" style="font-size:14px;color:var(--orange);">Still needed before submission</span>
+      <p class="k-body muted" style="margin-top:8px;">[ INSERT: number of real cameras actually connected · real detection count from live testing · any genuinely measured latency numbers, to sit alongside the design targets elsewhere in this deck. ]</p>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption" style="color:var(--orange);font-weight:600;">Placeholder slide — team action required</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Three working dashboards captured live from the build</span></div>
 </section>
 
 <!-- ============ SLIDE 18 — TEAM (new, agreed addition) ============ -->

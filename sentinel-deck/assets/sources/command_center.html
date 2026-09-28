@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentinel — AI Swarm Command Center</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>if(typeof L==="undefined"){function _chain(){return _proxy;}var _proxy=new Proxy(_chain,{get:function(){return _chain;},apply:function(){return _proxy;}});window.L=_proxy;}</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<style>
+  :root{
+    --bg-primary:#0a0d13;
+    --bg-secondary:#0f1420;
+    --bg-panel:#121826;
+    --bg-panel-raised:#161d2e;
+    --border:#232b3d;
+    --border-soft:#1a2132;
+    --text-primary:#e7ebf3;
+    --text-secondary:#8994a8;
+    --text-tertiary:#5b6478;
+
+    --accent-blue:#4da3ff;
+    --accent-blue-dim:#4da3ff26;
+    --accent-green:#2fd484;
+    --accent-green-dim:#2fd48422;
+    --accent-warning:#f0a940;
+    --accent-warning-dim:#f0a94022;
+    --accent-danger:#ff5468;
+    --accent-danger-dim:#ff546822;
+    --accent-agent:#a281f2;
+    --accent-agent-dim:#a281f222;
+
+    --radius-sm:6px;
+    --radius-md:10px;
+    --radius-lg:14px;
+    --font-ui:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    background:
+      radial-gradient(ellipse 1200px 600px at 15% -10%, #142033 0%, transparent 60%),
+      radial-gradient(ellipse 900px 500px at 100% 10%, #1a1430 0%, transparent 55%),
+      var(--bg-primary);
+    color:var(--text-primary);
+    font-family:var(--font-ui);
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  ::selection{background:var(--accent-blue-dim);color:var(--text-primary);}
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px;}
+  ::-webkit-scrollbar-thumb:hover{background:var(--text-tertiary);}
+
+  a{color:inherit;text-decoration:none;}
+  svg{display:block;}
+
+  /* ============ HEADER ============ */
+  header{
+    background:linear-gradient(180deg, var(--bg-secondary), var(--bg-primary));
+    border-bottom:1px solid var(--border);
+    padding:12px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-shrink:0;
+    z-index:20;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{
+    width:36px;height:36px;border-radius:9px;
+    background:linear-gradient(135deg,var(--accent-blue),#2563eb);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 1px #4da3ff33, 0 4px 14px -4px #4da3ff55;
+    flex-shrink:0;
+  }
+  .brand-mark svg{width:20px;height:20px;stroke:#08111f;}
+  .brand-text h1{font-size:15px;font-weight:700;letter-spacing:.2px;line-height:1.2;}
+  .brand-text p{font-size:11px;color:var(--text-secondary);font-weight:500;letter-spacing:.3px;}
+
+  .header-right{display:flex;align-items:center;gap:10px;}
+  .header-chip{
+    display:flex;align-items:center;gap:7px;
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+    color:var(--text-secondary);
+  }
+  .header-chip svg{width:13px;height:13px;}
+  .header-chip.status{color:var(--accent-green);border-color:#2fd48440;background:var(--accent-green-dim);}
+  .dot-pulse{width:7px;height:7px;border-radius:50%;background:var(--accent-green);position:relative;flex-shrink:0;}
+  .dot-pulse::after{
+    content:'';position:absolute;inset:-4px;border-radius:50%;
+    border:1px solid var(--accent-green);opacity:0;
+    animation:pulse-ring 1.8s infinite;
+  }
+  @keyframes pulse-ring{0%{opacity:.7;transform:scale(.6);}100%{opacity:0;transform:scale(1.8);}}
+  #clock{font-family:var(--font-mono);font-variant-numeric:tabular-nums;color:var(--text-primary);}
+  .icon-btn{
+    width:32px;height:32px;border-radius:8px;
+    background:var(--bg-panel);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--text-secondary);position:relative;cursor:pointer;
+  }
+  .icon-btn svg{width:15px;height:15px;}
+  .icon-btn .badge{
+    position:absolute;top:-4px;right:-4px;width:15px;height:15px;border-radius:50%;
+    background:var(--accent-danger);color:#fff;font-size:9px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);
+    box-shadow:0 0 0 2px var(--bg-primary);
+  }
+
+  nav.subnav{
+    display:flex;gap:4px;background:var(--bg-secondary);
+    border-bottom:1px solid var(--border);padding:0 22px;flex-shrink:0;
+  }
+  nav.subnav a{
+    font-size:12.5px;font-weight:600;color:var(--text-secondary);
+    padding:10px 14px;border-bottom:2px solid transparent;
+    display:flex;align-items:center;gap:7px;
+  }
+  nav.subnav a svg{width:14px;height:14px;}
+  nav.subnav a.active{color:var(--accent-blue);border-bottom-color:var(--accent-blue);}
+  nav.subnav a:hover:not(.active){color:var(--text-primary);}
+
+  /* ============ KPI BAR ============ */
+  .kpi-bar{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:10px;
+    padding:12px 22px;flex-shrink:0;
+  }
+  .kpi-card{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius-md);
+    padding:10px 14px;display:flex;flex-direction:column;gap:2px;position:relative;overflow:hidden;
+  }
+  .kpi-card::before{
+    content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--kpi-accent,var(--accent-blue));
+  }
+  .kpi-label{font-size:10.5px;color:var(--text-tertiary);font-weight:600;letter-spacing:.3px;text-transform:uppercase;}
+  .kpi-value{font-family:var(--font-mono);font-size:21px;font-weight:700;letter-spacing:.2px;}
+  .kpi-value span.sub{font-size:12px;color:var(--text-tertiary);font-weight:500;}
+  .kpi-card.blue{--kpi-accent:var(--accent-blue);}
+  .kpi-card.green{--kpi-accent:var(--accent-green);}
+  .kpi-card.warn{--kpi-accent:var(--accent-warning);}
+  .kpi-card.danger{--kpi-accent:var(--accent-danger);}
+  .kpi-card.agent{--kpi-accent:var(--accent-agent);}
+
+  /* ============ MAIN GRID ============ */
+  .dashboard{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap:12px;
+    padding:0 22px 14px;
+    flex:1;
+    min-height:0;
+  }
+  .col{display:flex;flex-direction:column;gap:12px;min-height:0;}
+
+  .panel{
+    background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius-lg);
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .panel-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px;border-bottom:1px solid var(--border-soft);
+    flex-shrink:0;
+  }
+  .panel-head-left{display:flex;align-items:center;gap:8px;}
+  .panel-head-left svg{width:14px;height:14px;color:var(--text-secondary);}
+  .panel-title{font-size:12px;font-weight:700;letter-spacing:.3px;color:var(--text-primary);}
+  .panel-sub{font-size:10.5px;color:var(--text-tertiary);font-weight:500;}
+  .live-tag{
+    display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.4px;
+    color:var(--accent-green);font-family:var(--font-mono);
+  }
+
+  /* ---- Video Panel ---- */
+  .video-panel{height:44%;flex-shrink:0;}
+  .video-wrapper{flex:1;background:#000;position:relative;min-height:0;}
+  video{width:100%;height:100%;object-fit:cover;display:block;}
+  .scan-overlay{position:absolute;inset:0;pointer-events:none;}
+  .scan-line{
+    position:absolute;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent-blue),transparent);
+    box-shadow:0 0 12px 1px #4da3ff99;
+    animation:scan-move 3.2s ease-in-out infinite;
+  }
+  @keyframes scan-move{0%{top:6%;opacity:0;}10%{opacity:1;}50%{top:94%;opacity:1;}60%{opacity:0;}100%{top:94%;opacity:0;}}
+  .feed-tags{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:6px;}
+  .feed-tag{
+    font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.3px;
+    background:#050810cc;backdrop-filter:blur(4px);border:1px solid var(--border);
+    padding:3px 8px;border-radius:4px;color:var(--text-secondary);width:fit-content;
+  }
+  .feed-tag.live{color:var(--accent-danger);border-color:#ff546855;display:flex;align-items:center;gap:5px;}
+  .feed-tag.live .rec-dot{width:6px;height:6px;border-radius:50%;background:var(--accent-danger);animation:blink 1s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+  .detect-box{
+    position:absolute;border:1.5px solid var(--accent-green);border-radius:4px;
+    box-shadow:0 0 0 3000px #00000000, 0 0 14px -2px #2fd48488;
+    opacity:0;animation:detect-appear 6s ease-in-out infinite;
+  }
+  @keyframes detect-appear{0%,55%{opacity:0;}62%{opacity:1;}92%{opacity:1;}100%{opacity:0;}}
+  .detect-label{
+    position:absolute;bottom:100%;left:-1.5px;margin-bottom:4px;
+    background:var(--accent-green);color:#052e1c;font-family:var(--font-mono);
+    font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap;
+  }
+
+  .plate-readout{
+    position:absolute;bottom:10px;left:10px;right:10px;
+    background:#050810e6;backdrop-filter:blur(6px);border:1px solid var(--border);
+    border-radius:8px;padding:9px 12px;
+    display:flex;align-items:center;justify-content:space-between;
+    opacity:0;animation:readout-appear 6s ease-in-out infinite;
+  }
+  @keyframes readout-appear{0%,52%{opacity:0;transform:translateY(6px);}60%{opacity:1;transform:translateY(0);}90%{opacity:1;}100%{opacity:0;}}
+  .plate-readout .rl{display:flex;flex-direction:column;gap:2px;}
+  .plate-readout .rl-label{font-size:9px;color:var(--text-tertiary);font-weight:600;letter-spacing:.4px;}
+  .plate-readout .rl-value{font-family:var(--font-mono);font-size:15px;font-weight:700;color:var(--accent-green);letter-spacing:1px;}
+  .plate-readout .rr{text-align:right;}
+  .plate-readout .rr-value{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--accent-green);}
+  .plate-readout .rr-label{font-size:9px;color:var(--text-tertiary);font-weight:600;}
+
+  .feed-meta-strip{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:7px 14px;border-top:1px solid var(--border-soft);
+    font-family:var(--font-mono);font-size:10.5px;color:var(--text-tertiary);flex-shrink:0;
+  }
+  .feed-meta-strip b{color:var(--text-secondary);font-weight:600;}
+
+  /* ---- Map Panel ---- */
+  .map-panel{flex:1;min-height:0;}
+  #map{width:100%;flex:1;min-height:0;background:var(--bg-secondary);}
+  .map-legend{
+    display:flex;gap:14px;padding:8px 14px;border-top:1px solid var(--border-soft);
+    font-size:10.5px;color:var(--text-secondary);flex-wrap:wrap;flex-shrink:0;
+  }
+  .map-legend .li{display:flex;align-items:center;gap:6px;}
+  .map-legend .sw{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+
+  /* ---- Investigation Card ---- */
+  .invest-card{
+    border:1px solid #f0a94040;
+    background:linear-gradient(135deg, #f0a94012, var(--bg-panel) 40%);
+    flex-shrink:0;
+  }
+  .invest-card .panel-head{border-bottom-color:#f0a94030;}
+  .invest-body{padding:12px 14px;display:flex;gap:16px;align-items:center;}
+  .invest-grid{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+  .invest-field label{display:block;font-size:9.5px;color:var(--text-tertiary);font-weight:600;letter-spacing:.3px;text-transform:uppercase;margin-bottom:3px;}
+  .invest-field .val{font-family:var(--font-mono);font-size:12.5px;font-weight:700;color:var(--text-primary);}
+  .invest-field .val.plate{color:var(--accent-warning);letter-spacing:.5px;}
+  .invest-btn{
+    flex-shrink:0;background:var(--accent-warning);color:#241804;font-weight:700;font-size:11.5px;
+    padding:9px 16px;border-radius:8px;border:none;cursor:pointer;
+    display:flex;align-items:center;gap:6px;white-space:nowrap;
+  }
+  .invest-btn svg{width:14px;height:14px;}
+  .invest-btn:hover{filter:brightness(1.08);}
+
+  /* ---- Agent Grid ---- */
+  .agents-panel{flex:0 0 auto;height:44%;min-height:0;}
+  .agent-grid{
+    flex:1;overflow-y:auto;padding:10px;
+    display:grid;grid-template-columns:repeat(2,1fr);gap:8px;align-content:start;
+  }
+  .agent-card{
+    background:var(--bg-panel-raised);border:1px solid var(--border);border-radius:var(--radius-sm);
+    padding:9px 10px;display:flex;flex-direction:column;gap:5px;position:relative;
+  }
+  .agent-card.link{cursor:pointer;}
+  .agent-card.link:hover{border-color:var(--accent-warning);}
+  .agent-card.highlight{border-color:#f0a94070;background:linear-gradient(135deg,#f0a94014,var(--bg-panel-raised) 55%);}
+  .agent-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;}
+  .agent-id{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--text-primary);}
+  .agent-role{font-size:9.5px;color:var(--text-tertiary);font-weight:500;margin-top:1px;}
+  .agent-status{
+    display:flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;letter-spacing:.2px;
+    font-family:var(--font-mono);flex-shrink:0;
+  }
+  .agent-status .d{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+  .agent-status.active{color:var(--accent-green);}
+  .agent-status.active .d{background:var(--accent-green);box-shadow:0 0 6px #2fd48499;animation:blink 1.4s infinite;}
+  .agent-status.search{color:var(--accent-blue);}
+  .agent-status.search .d{background:var(--accent-blue);}
+  .agent-status.invest{color:var(--accent-warning);}
+  .agent-status.invest .d{background:var(--accent-warning);box-shadow:0 0 6px #f0a94099;animation:blink 1s infinite;}
+  .agent-task{font-size:10px;color:var(--text-secondary);line-height:1.3;}
+
+  /* ---- Terminal Panel ---- */
+  .terminal-panel{flex:1;min-height:0;background:#080b12;}
+  .terminal-panel .panel-head{background:#0a0e17;}
+  .console-logs{
+    flex:1;overflow-y:auto;padding:10px 14px;
+    font-family:var(--font-mono);font-size:11.5px;line-height:1.9;
+  }
+  .log-line{display:flex;gap:9px;opacity:0;animation:log-in .35s ease forwards;}
+  @keyframes log-in{from{opacity:0;transform:translateY(3px);}to{opacity:1;transform:translateY(0);}}
+  .log-time{color:var(--text-tertiary);flex-shrink:0;}
+  .log-tag{flex-shrink:0;font-weight:700;width:64px;}
+  .log-tag.SYSTEM{color:var(--text-secondary);}
+  .log-tag.SUCCESS{color:var(--accent-green);}
+  .log-tag.WARNING{color:var(--accent-warning);}
+  .log-tag.ALERT{color:var(--accent-danger);}
+  .log-tag.AGENT{color:var(--accent-agent);}
+  .log-msg{color:var(--text-primary);}
+  .log-msg b{color:inherit;font-weight:700;}
+
+  @media (max-width:1300px){
+    .kpi-bar{grid-template-columns:repeat(3,1fr);}
+    .dashboard{grid-template-columns:1fr;overflow-y:auto;}
+    .video-panel,.agents-panel{height:auto;min-height:340px;}
+    .invest-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6l-9-4Z"/></svg></div>
+    <div class="brand-text">
+      <h1>SENTINEL</h1>
+      <p>AI SWARM COMMAND CENTER</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-chip status"><div class="dot-pulse"></div> 10/10 AGENTS ONLINE</div>
+    <div class="header-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg> MODE: AUTONOMOUS</div>
+    <div class="header-chip" id="clock">--:--:--</div>
+    <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="badge">1</span></div>
+  </div>
+</header>
+
+<nav class="subnav">
+  <a href="index.html" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg> Command Center</a>
+  <a href="camera_tracking.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7 16 12l7 5V7Z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg> Multi-Camera Tracking</a>
+  <a href="agent4_view.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Agent-4 Investigation</a>
+</nav>
+
+<div class="kpi-bar">
+  <div class="kpi-card blue">
+    <span class="kpi-label">Active Agents</span>
+    <span class="kpi-value">10<span class="sub">/10</span></span>
+  </div>
+  <div class="kpi-card green">
+    <span class="kpi-label">Live Cameras</span>
+    <span class="kpi-value">01</span>
+  </div>
+  <div class="kpi-card agent">
+    <span class="kpi-label">Archive Searches</span>
+    <span class="kpi-value">09</span>
+  </div>
+  <div class="kpi-card warn">
+    <span class="kpi-label">Active Investigations</span>
+    <span class="kpi-value">01</span>
+  </div>
+  <div class="kpi-card blue">
+    <span class="kpi-label">Vehicles Detected</span>
+    <span class="kpi-value">247</span>
+  </div>
+  <div class="kpi-card danger">
+    <span class="kpi-label">Alerts</span>
+    <span class="kpi-value">01</span>
+  </div>
+</div>
+
+<div class="dashboard">
+  <div class="col">
+    <div class="panel video-panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7 16 12l7 5V7Z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          <span class="panel-title">AGENT-1 · LIVE ANPR FEED</span>
+          <span class="panel-sub">Camera 01 — Vaishnodevi / NH-8</span>
+        </div>
+        <span class="live-tag"><span class="rec-dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent-danger);animation:blink 1s infinite;"></span> LIVE</span>
+      </div>
+      <div class="video-wrapper">
+        <video id="streamVideo" autoplay loop muted playsinline>
+          <source src="demo_annotated.mp4" type="video/mp4">
+        </video>
+        <div class="scan-overlay">
+          <div class="scan-line"></div>
+          <div class="detect-box" style="left:38%;top:42%;width:20%;height:22%;">
+            <div class="detect-label">PLATE DETECTED</div>
+          </div>
+        </div>
+        <div class="feed-tags">
+          <div class="feed-tag live"><span class="rec-dot"></span>OCR ACTIVE</div>
+          <div class="feed-tag">CAM-01 · NH-8 JUNCTION</div>
+        </div>
+        <div class="plate-readout">
+          <div class="rl">
+            <span class="rl-label">LAST DETECTED PLATE</span>
+            <span class="rl-value">GJ01AB9999</span>
+          </div>
+          <div class="rr">
+            <span class="rr-value">98.4%</span>
+            <span class="rr-label">CONFIDENCE</span>
+          </div>
+        </div>
+      </div>
+      <div class="feed-meta-strip">
+        <span>FPS: <b>29.7</b></span>
+        <span>RESOLUTION: <b>1920×1080</b></span>
+        <span>UPTIME: <b id="feedUptime">00:00:00</b></span>
+      </div>
+    </div>
+
+    <div class="panel map-panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4Z"/><path d="M8 2v16M16 6v16"/></svg>
+          <span class="panel-title">GEOSPATIAL CORRIDOR</span>
+          <span class="panel-sub">Vaishnodevi ↔ Zundal</span>
+        </div>
+      </div>
+      <div id="map"></div>
+      <div class="map-legend">
+        <div class="li"><span class="sw" style="background:var(--accent-green);"></span>Active Camera</div>
+        <div class="li"><span class="sw" style="background:var(--accent-danger);"></span>Target Vehicle</div>
+        <div class="li"><span class="sw" style="background:var(--accent-agent);"></span>Agent Node</div>
+        <div class="li"><span class="sw" style="background:var(--accent-warning);border-radius:2px;"></span>Search Zone</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="panel invest-card">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <span class="panel-title" style="color:var(--accent-warning);">ACTIVE INVESTIGATION</span>
+        </div>
+        <span class="panel-sub">Reported 10 min ago</span>
+      </div>
+      <div class="invest-body">
+        <div class="invest-grid">
+          <div class="invest-field"><label>Vehicle</label><div class="val plate">GJ01AB9999</div></div>
+          <div class="invest-field"><label>Type</label><div class="val">Black SUV</div></div>
+          <div class="invest-field"><label>Location</label><div class="val">Vaishnodevi Cir.</div></div>
+          <div class="invest-field"><label>Investigator</label><div class="val">Agent-4</div></div>
+          <div class="invest-field"><label>Radius</label><div class="val">5 KM</div></div>
+        </div>
+        <a href="agent4_view.html" class="invest-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+          VIEW INVESTIGATION
+        </a>
+      </div>
+    </div>
+
+    <div class="panel agents-panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>
+          <span class="panel-title">AI AGENT SWARM</span>
+        </div>
+        <span class="panel-sub">1 Live · 9 Archive</span>
+      </div>
+      <div class="agent-grid" id="agentGrid"></div>
+    </div>
+
+    <div class="panel terminal-panel">
+      <div class="panel-head">
+        <div class="panel-head-left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6M12 19h8"/></svg>
+          <span class="panel-title">SWARM TERMINAL</span>
+        </div>
+        <span class="panel-sub" id="logCount">0 events</span>
+      </div>
+      <div class="console-logs" id="consoleLogs"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+try{lucide.createIcons();}catch(e){}
+
+/* Clock */
+function tick(){
+  document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB');
+}
+tick(); setInterval(tick, 1000);
+
+/* Feed uptime */
+let uptimeSec = 0;
+setInterval(()=>{
+  uptimeSec++;
+  const h = String(Math.floor(uptimeSec/3600)).padStart(2,'0');
+  const m = String(Math.floor((uptimeSec%3600)/60)).padStart(2,'0');
+  const s = String(uptimeSec%60).padStart(2,'0');
+  document.getElementById('feedUptime').textContent = `${h}:${m}:${s}`;
+},1000);
+
+/* ---- Leaflet Map ---- */
+const map = L.map('map', {zoomControl:true, attributionControl:false}).setView([23.1288, 72.5401], 13);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 19 }).addTo(map);
+
+function pinIcon(color, glow){
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:14px;height:14px;border-radius:50%;background:${color};border:2px solid #0a0d13;box-shadow:0 0 10px 1px ${glow};"></div>`,
+    iconSize:[14,14], iconAnchor:[7,7]
+  });
+}
+const camIcon = pinIcon('#2fd484','#2fd48499');
+const agentIcon = pinIcon('#a281f2','#a281f299');
+const targetIcon = pinIcon('#ff5468','#ff546899');
+
+L.marker([23.1288,72.5401], {icon:camIcon}).addTo(map).bindPopup('<b>CAM-01</b><br>Vaishnodevi Circle<br><span style="color:#2fd484">ACTIVE — OCR LIVE</span>');
+L.marker([23.1105,72.5570], {icon:camIcon}).addTo(map).bindPopup('<b>CAM-02</b><br>Zundal Circle Junction<br><span style="color:#8994a8">STANDBY</span>');
+L.marker([23.1288,72.5401], {icon:agentIcon}).addTo(map).bindPopup('<b>AGENT-4</b><br>Investigation node<br>5km geo-fence active');
+L.marker([23.1190,72.5480], {icon:targetIcon}).addTo(map).bindPopup('<b>TARGET</b><br>GJ01AB9999<br>Black SUV — last seen');
+
+L.circle([23.1288,72.5401], {radius:5000, color:'#f0a940', weight:1.4, fillColor:'#f0a940', fillOpacity:0.05, dashArray:'4 6'}).addTo(map);
+L.polyline([[23.1288,72.5401],[23.1190,72.5480],[23.1105,72.5570]], {color:'#4da3ff', weight:2.5, opacity:0.7, dashArray:'1 8', lineCap:'round'}).addTo(map);
+
+/* ---- Agent Grid ---- */
+const agents = [
+  {id:'AGENT-01', role:'Live ANPR Scanner', status:'active', label:'ACTIVE', task:'Scanning live feed · Cam-01 NH-8'},
+  {id:'AGENT-02', role:'Archive Search', status:'search', label:'RE-ACQUIRED', task:'Handoff corridor · Zundal sector'},
+  {id:'AGENT-03', role:'Archive Search', status:'search', label:'DISPATCHED', task:'Intercept vector · SG Highway'},
+  {id:'AGENT-04', role:'Stolen Vehicle Investigation', status:'invest', label:'INVESTIGATING', task:'GJ01AB9999 · 5km geo-fence', link:'agent4_view.html', highlight:true},
+  {id:'AGENT-05', role:'Archive Search', status:'search', label:'SEARCHING', task:'Cold case archive · Sector 5'},
+  {id:'AGENT-06', role:'Archive Search', status:'search', label:'SEARCHING', task:'Cam-108 node · Zundal Cut'},
+  {id:'AGENT-07', role:'Archive Search', status:'search', label:'SEARCHING', task:'Cam-105 node · SG Highway'},
+  {id:'AGENT-08', role:'Archive Search', status:'search', label:'SEARCHING', task:'Cam-102 node · SP Ring Rd'},
+  {id:'AGENT-09', role:'Archive Search', status:'search', label:'SEARCHING', task:'Database cross-reference'},
+  {id:'AGENT-10', role:'Archive Search', status:'search', label:'SEARCHING', task:'Plate registry lookup'},
+];
+
+const grid = document.getElementById('agentGrid');
+agents.forEach(a=>{
+  const el = document.createElement(a.link ? 'a' : 'div');
+  if(a.link) el.href = a.link;
+  el.className = `agent-card ${a.link?'link':''} ${a.highlight?'highlight':''}`;
+  el.innerHTML = `
+    <div class="agent-top">
+      <div>
+        <div class="agent-id">${a.id}</div>
+        <div class="agent-role">${a.role}</div>
+      </div>
+      <div class="agent-status ${a.status}"><span class="d"></span>${a.label}</div>
+    </div>
+    <div class="agent-task">${a.task}</div>
+  `;
+  grid.appendChild(el);
+});
+
+/* ---- Swarm Terminal ---- */
+const consoleLogs = document.getElementById('consoleLogs');
+const logCountEl = document.getElementById('logCount');
+let logCount = 0;
+
+function addLog(tag, msg){
+  logCount++;
+  logCountEl.textContent = `${logCount} events`;
+  const time = new Date().toLocaleTimeString('en-GB');
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.innerHTML = `<span class="log-time">${time}</span><span class="log-tag ${tag}">${tag}</span><span class="log-msg">${msg}</span>`;
+  consoleLogs.appendChild(line);
+  consoleLogs.scrollTop = consoleLogs.scrollHeight;
+}
+
+addLog('SYSTEM', 'Sentinel swarm network initialized · 10 agents online');
+addLog('SUCCESS', '<b>Agent-01</b> OCR pipeline active on Camera 01');
+addLog('SYSTEM', 'Agents 02–10 assigned to historical archive database');
+
+setTimeout(()=>{
+  addLog('ALERT', 'New stolen vehicle report received');
+  addLog('WARNING', 'Vehicle <b>GJ01AB9999</b> · Complaint origin: Vaishnodevi Circle');
+  addLog('AGENT', '<b>Agent-04</b> assigned · initializing 5km geo-fence search');
+}, 2000);
+
+setTimeout(()=>{
+  addLog('AGENT', '<b>Agent-08</b> scanning archive · Cam-102 / SP Ring Rd');
+}, 4200);
+
+setTimeout(()=>{
+  addLog('AGENT', '<b>Agent-07</b> OCR processing · Cam-105 / SG Highway');
+}, 6400);
+
+setTimeout(()=>{
+  addLog('SUCCESS', '<b>Agent-06</b> suspect trail matched · Cam-108 / Zundal Cut');
+}, 8600);
+</script>
+
+</body>
+</html>
