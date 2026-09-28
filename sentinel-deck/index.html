@@ -181,12 +181,8 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
 
 <!-- ============ SLIDE 1 — TITLE (Harsha's original cover, unchanged) ============ -->
 <section class="slide dark chromeless" data-title="Title">
-  <div style="padding-top:70px;display:flex;justify-content:space-between;align-items:flex-start;">
-    <span class="badge reveal" data-d="1">GUJARAT POLICE INNOVATION HACKATHON 2026</span>
-    <span class="entry-id reveal" data-d="1">ENTRY ID: GP-HACK-2026</span>
-  </div>
-  <div style="display:flex;flex-direction:column;justify-content:center;flex:1;max-width:1160px;">
-    <span class="k-kicker reveal" data-d="2">🛡 Official Slide Deck</span>
+  <div style="display:flex;flex-direction:column;justify-content:center;flex:1;max-width:1160px;padding-top:70px;">
+    <span class="k-kicker reveal" data-d="2">Official Slide Deck</span>
     <h1 class="k-display reveal" style="margin-top:14px;" data-d="3">PROJECT SENTINEL</h1>
     <p class="k-lead reveal" style="margin-top:16px;max-width:900px;" data-d="4">AI-Powered Intelligent CCTV Investigation &amp; Multi-Agent Surveillance Platform</p>
     <div class="card reveal" style="margin-top:26px;max-width:900px;border-left:4px solid var(--cyan);border-radius:8px;" data-d="5">
@@ -212,10 +208,10 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
       <div class="reveal" data-d="2">
         <p class="k-body muted">A large CCTV network produces enormous volumes of continuous video. During a critical vehicle incident or crime investigation, officers face time-critical questions:</p>
         <div class="grid-2" style="gap:16px;margin-top:20px;">
-          <div class="card card-tight"><span class="k-body" style="font-weight:600;">📷 Which cameras saw it?</span></div>
-          <div class="card card-tight"><span class="k-body" style="font-weight:600;">🕐 Exact timestamp of sighting?</span></div>
-          <div class="card card-tight"><span class="k-body" style="font-weight:600;">🚗 Where did it move next?</span></div>
-          <div class="card card-tight"><span class="k-body" style="font-weight:600;">🗄 Matches official records?</span></div>
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">Which cameras saw it?</span></div>
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">Exact timestamp of sighting?</span></div>
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">Where did it move next?</span></div>
+          <div class="card card-tight"><span class="k-body" style="font-weight:600;">Matches official records?</span></div>
         </div>
         <div class="callout-insight" style="margin-top:22px;">
           <span class="k-body"><strong>Key Insight:</strong> The problem is not watching cameras — it is rapidly querying data across thousands of isolated feeds.</span>
@@ -255,7 +251,7 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
     </div>
     <div class="card card-tight reveal" style="margin-top:18px;max-width:760px;" data-d="3"><span class="k-h3" style="font-size:17px;color:var(--cyan);">05 · Decoupled Web Architecture</span><p class="k-body muted" style="margin-top:6px;">Frontend/APIs kept fully separate from heavy AI compute, protecting dashboard uptime under heavy AI load.</p></div>
   </div>
-  <div class="foot-bar"><span class="k-caption muted">✓ Zero-hardware-overhaul approach — direct RTSP ingestion, no camera replacement</span></div>
+  <div class="foot-bar"><span class="k-caption muted">Zero-hardware-overhaul approach — direct RTSP ingestion, no camera replacement</span></div>
 </section>
 
 <!-- ============ SLIDE 4 — SYSTEM OVERVIEW PART 1 (split from her single 8-layer slide) ============ -->
@@ -306,13 +302,13 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
         <span class="k-kicker" style="color:var(--red);">Conventional Approach</span>
         <h3 class="k-h3" style="margin-top:10px;">Full-Network Continuous Processing</h3>
         <p class="k-body muted" style="margin-top:8px;">Runs heavy AI models on all 80,000+ camera feeds simultaneously, 24/7.</p>
-        <p class="k-caption callout-warn" style="margin-top:12px;">⚠ Massive server cost, excessive power consumption, high latency.</p>
+        <p class="k-caption callout-warn" style="margin-top:12px;">Massive server cost, excessive power consumption, high latency.</p>
       </div>
       <div class="card-highlight">
         <span class="k-kicker">Sentinel Agentic Approach</span>
         <h3 class="k-h3" style="margin-top:10px;">Dynamic 5 KM Geo-Fenced AI Micro-Agents</h3>
         <p class="k-body muted" style="margin-top:8px;">When an incident triggers, Sentinel spawns lightweight AI agents assigned specifically to nearby cameras within a 5 KM radius.</p>
-        <p class="k-caption" style="margin-top:12px;color:var(--cyan);">✓ Simple Analogy: Deploying investigators to the scene instead of searching the entire state.</p>
+        <p class="k-caption" style="margin-top:12px;color:var(--cyan);">Simple Analogy: Deploying investigators to the scene instead of searching the entire state.</p>
       </div>
     </div>
   </div>
@@ -408,8 +404,8 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
   <div class="body-row">
     <h2 class="k-h2 reveal" data-d="1">How Sentinel Handles Millions of Fast Vehicle Queries</h2>
     <div class="grid-2 reveal" style="margin-top:24px;" data-d="2">
-      <div class="card"><span class="k-h3">🔀 State-Code Sharding</span><p class="k-body muted" style="margin-top:8px;"><strong>Database Sharding:</strong> Splitting a giant database into smaller regional sections (e.g., GJ01, GJ04, GJXX) so queries run faster.</p><div class="k-mono muted" style="margin-top:14px;">Partition → GJ-01 (Ahmedabad) | GJ-04 (Bhavnagar)</div></div>
-      <div class="card"><span class="k-h3">⚡ Redis In-Memory Cache</span><p class="k-body muted" style="margin-top:8px;"><strong>Redis Cache:</strong> Very fast temporary memory keeping active vehicle watchlists immediately accessible.</p><div class="k-mono muted" style="margin-top:14px;">RAM Cache Lookup Time: Target &lt; 0.5 ms</div></div>
+      <div class="card"><span class="k-h3">State-Code Sharding</span><p class="k-body muted" style="margin-top:8px;"><strong>Database Sharding:</strong> Splitting a giant database into smaller regional sections (e.g., GJ01, GJ04, GJXX) so queries run faster.</p><div class="k-mono muted" style="margin-top:14px;">Partition → GJ-01 (Ahmedabad) | GJ-04 (Bhavnagar)</div></div>
+      <div class="card"><span class="k-h3">Redis In-Memory Cache</span><p class="k-body muted" style="margin-top:8px;"><strong>Redis Cache:</strong> Very fast temporary memory keeping active vehicle watchlists immediately accessible.</p><div class="k-mono muted" style="margin-top:14px;">RAM Cache Lookup Time: Target &lt; 0.5 ms</div></div>
     </div>
     <div class="grid-2 reveal" style="margin-top:20px;" data-d="3">
       <div class="callout-outcome" style="text-align:center;"><span class="k-caption muted">Query Throughput Target</span><div class="k-stat" style="margin-top:4px;">400,000+</div><span class="k-caption muted">Plate Queries / Sec</span></div>
@@ -453,9 +449,9 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
         <span class="k-caption muted">[ command center dashboard screenshot ]</span>
       </div>
       <div>
-        <div class="card card-tight" style="margin-bottom:14px;"><span class="k-h3" style="font-size:16px;">🗺 Geospatial Mapping</span><p class="k-body muted" style="margin-top:6px;">Live camera locations &amp; active 5 KM incident zones.</p></div>
-        <div class="card card-tight" style="margin-bottom:14px;"><span class="k-h3" style="font-size:16px;">▶ WebRTC Live Video</span><p class="k-body muted" style="margin-top:6px;">Low-latency live stream popups on click.</p></div>
-        <div class="card card-tight"><span class="k-h3" style="font-size:16px;">🔔 Automated Alerts</span><p class="k-body muted" style="margin-top:6px;">Instant notifications when target vehicle is spotted.</p></div>
+        <div class="card card-tight" style="margin-bottom:14px;"><span class="k-h3" style="font-size:16px;">Geospatial Mapping</span><p class="k-body muted" style="margin-top:6px;">Live camera locations &amp; active 5 KM incident zones.</p></div>
+        <div class="card card-tight" style="margin-bottom:14px;"><span class="k-h3" style="font-size:16px;">WebRTC Live Video</span><p class="k-body muted" style="margin-top:6px;">Low-latency live stream popups on click.</p></div>
+        <div class="card card-tight"><span class="k-h3" style="font-size:16px;">Automated Alerts</span><p class="k-body muted" style="margin-top:6px;">Instant notifications when target vehicle is spotted.</p></div>
       </div>
     </div>
   </div>
@@ -471,9 +467,9 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
   <div class="body-row">
     <h2 class="k-h2 reveal" data-d="1">Multi-Agency Command: Shared Platform Architecture</h2>
     <div class="grid-3 reveal" style="margin-top:26px;align-items:center;" data-d="2">
-      <div class="card"><span class="k-h3" style="font-size:17px;">👮 Police Department</span><p class="k-body muted" style="margin-top:8px;">Criminal investigation, trajectory tracking, and automated alert dispatch.</p></div>
+      <div class="card"><span class="k-h3" style="font-size:17px;">Police Department</span><p class="k-body muted" style="margin-top:8px;">Criminal investigation, trajectory tracking, and automated alert dispatch.</p></div>
       <div class="card" style="background:var(--navy);text-align:center;"><span class="k-kicker">Central Core</span><h3 class="k-h3" style="margin-top:8px;color:#fff;">Sentinel Command Center</h3><p class="k-caption" style="margin-top:4px;color:var(--navy-text-muted);">Unified Role-Based Data Hub</p></div>
-      <div class="card"><span class="k-h3" style="font-size:17px;">🪪 RTO &amp; Municipal</span><p class="k-body muted" style="margin-top:8px;">Vehicle registration lookup &amp; city infrastructure monitoring.</p></div>
+      <div class="card"><span class="k-h3" style="font-size:17px;">RTO &amp; Municipal</span><p class="k-body muted" style="margin-top:8px;">Vehicle registration lookup &amp; city infrastructure monitoring.</p></div>
     </div>
     <p class="k-body muted reveal" style="margin-top:22px;max-width:1300px;" data-d="3">Health &amp; Panchayat feeds are included in the shared camera backbone under non-investigative, view-limited access.</p>
   </div>
@@ -529,8 +525,8 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
   <div class="body-row">
     <h2 class="k-h2 reveal" data-d="1">Resilience: Built for a Network That Cannot Stop</h2>
     <div class="grid-2 reveal" style="margin-top:26px;" data-d="2">
-      <div class="card"><span class="k-h3">🧩 Containerized Microservices</span><p class="k-body muted" style="margin-top:8px;"><strong>Microservices:</strong> Packaging system functions into independent workers. If heavy AI processing spikes, web streaming and database lookup remain unaffected.</p></div>
-      <div class="card"><span class="k-h3">📶 Network Auto-Reconnection</span><p class="k-body muted" style="margin-top:8px;">If network connection drops at a regional camera node, local buffering holds footage and automatically reconnects without human intervention.</p></div>
+      <div class="card"><span class="k-h3">Containerized Microservices</span><p class="k-body muted" style="margin-top:8px;"><strong>Microservices:</strong> Packaging system functions into independent workers. If heavy AI processing spikes, web streaming and database lookup remain unaffected.</p></div>
+      <div class="card"><span class="k-h3">Network Auto-Reconnection</span><p class="k-body muted" style="margin-top:8px;">If network connection drops at a regional camera node, local buffering holds footage and automatically reconnects without human intervention.</p></div>
     </div>
   </div>
   <div class="foot-bar"><span class="k-body"><strong>Architectural Goal:</strong> Zero single point of failure across 80,000+ CCTV nodes. <span class="muted">Resilience Standard: Production Grade</span></span></div>
@@ -545,11 +541,11 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
   <div class="body-row">
     <h2 class="k-h2 reveal" data-d="1">What We've Actually Built</h2>
     <div class="placeholder-box reveal" style="margin-top:24px;" data-d="2">
-      <span class="k-h3" style="font-size:16px;color:var(--orange);">⚠ Fill before submission</span>
+      <span class="k-h3" style="font-size:16px;color:var(--orange);">Fill before submission</span>
       <p class="k-body muted" style="margin-top:12px;max-width:1300px;">[ INSERT: real screenshot / demo GIF of the working dashboard · number of cameras actually connected · real detection count from testing · any genuinely measured latency numbers. This slide is the single highest-weighted slide for the "platform maturity" judging criterion — replace every bracket before the finale. ]</p>
     </div>
   </div>
-  <div class="foot-bar"><span class="k-caption" style="color:var(--orange);font-weight:600;">⚠ Placeholder slide — team action required</span></div>
+  <div class="foot-bar"><span class="k-caption" style="color:var(--orange);font-weight:600;">Placeholder slide — team action required</span></div>
 </section>
 
 <!-- ============ SLIDE 18 — TEAM (new, agreed addition) ============ -->
@@ -562,7 +558,7 @@ ul.chevlist li::before { content: "›"; position: absolute; left: 0; top: -2px;
     <h2 class="k-h2 reveal" data-d="1">The Team Behind Sentinel</h2>
     <div class="grid-3 reveal" style="margin-top:30px;" data-d="2">
       <div class="member-card"><span class="k-h3">Jignesh</span><p class="k-caption muted" style="margin-top:6px;text-transform:uppercase;letter-spacing:0.05em;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
-      <div class="member-card"><span class="k-h3">Harsh Sanghavi</span><p class="k-caption muted" style="margin-top:6px;text-transform:uppercase;letter-spacing:0.05em;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
+      <div class="member-card"><span class="k-h3">Harsh Lohana</span><p class="k-caption muted" style="margin-top:6px;text-transform:uppercase;letter-spacing:0.05em;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
       <div class="member-card"><span class="k-h3">Nirav Prajapati</span><p class="k-caption muted" style="margin-top:6px;text-transform:uppercase;letter-spacing:0.05em;">[ Role Placeholder ]</p><p class="k-body muted" style="margin-top:10px;">[ What they own ]</p></div>
     </div>
   </div>
